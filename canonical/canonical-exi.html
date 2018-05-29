@@ -1,0 +1,2021 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Canonical EXI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>body { background-image: url('https://www.w3.org/StyleSheets/TR/logo-PR'); } </style>
+<style type="text/css">
+code           { font-family: monospace; }
+
+div.constraint,
+div.issue,
+div.note       { margin-left: 2em; }
+div.notice     { margin-left: 2em; font-weight: bold; font-size: larger; color: red }
+
+ol.enumar      { list-style-type: decimal; }
+ol.enumla      { list-style-type: lower-alpha; }
+ol.enumlr      { list-style-type: lower-roman; }
+ol.enumua      { list-style-type: upper-alpha; }
+ol.enumur      { list-style-type: upper-roman; }
+
+
+div.exampleInner pre { margin-left: 1em;
+                       margin-top: 0em; margin-bottom: 0em}
+div.exampleOuter {border: 4px double gray;
+                  margin: 0em; padding: 0em}
+div.exampleInner { background-color: #d5dee3;
+                   border-top-width: 4px;
+                   border-top-style: double;
+                   border-top-color: #d3d3d3;
+                   border-bottom-width: 4px;
+                   border-bottom-style: double;
+                   border-bottom-color: #d3d3d3;
+                   padding: 4px; margin: 0em }
+div.exampleWrapper { margin: 4px }
+div.exampleHeader { font-weight: bold;
+                    margin: 4px}
+
+  
+   tr.silver td { color: silver; font-style: italic }
+
+   tr.bold td { font-weight: bold }
+   
+   td.xml { background-color: black; color: white; font-weight: bold; font-size: 100% }
+   .schema-less { background-color: silver; font-style: italic }
+   .schema-informed { background-color: gray; }
+   
+   notice { margin-left: 2em; font-weight: bold; font-size: larger; color: #005A9C; }
+   
+   td.footnote { font-size: 75% }
+
+   table.tableBorders tr th,
+   table.tableBorders tr td
+   {
+      border: 1px solid gray;
+      padding: 5px;
+      /*margin: 5px;*/
+   }
+   
+   table.tableNoBorders tr th,
+   table.tableNoBorders tr td
+   {
+      border: 0px;
+      padding: 0px;
+      /*margin: 5px;*/
+   }
+
+</style>
+<link rel="stylesheet" type="text/css" href="https://www.w3.org/StyleSheets/TR/2016/W3C-PR.css">
+<link rel="canonical" href="https://www.w3.org/TR/exi-c14n">
+</head>
+<body>
+<div class="head">
+<p>
+<a href="https://www.w3.org/"><img src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C" height="48" width="72"></a>
+</p>
+
+<h1>
+<a id="title"></a>Canonical EXI</h1>
+
+<h2>
+<a id="w3c-doctype"></a>W3C Proposed Recommendation 17 April 2018</h2>
+<dl>
+<dt>This version:</dt>
+<dd>
+            
+<a href="https://www.w3.org/TR/2018/PR-exi-c14n-20180220/">
+            https://www.w3.org/TR/2018/PR-exi-c14n-20180220/</a>
+        
+</dd>
+<dt>Latest version:</dt>
+<dd>
+            
+<a href="https://www.w3.org/TR/exi-c14n/">https://www.w3.org/TR/exi-c14n/</a>
+        
+</dd>
+<dt>Previous versions:</dt>
+<dd>
+            
+<a href="https://www.w3.org/TR/2016/CR-exi-c14n-20161103/">https://www.w3.org/TR/2016/CR-exi-c14n-20161103/</a>
+            <a href="https://www.w3.org/TR/2015/WD-exi-c14n-20150521/">https://www.w3.org/TR/2015/WD-exi-c14n-20150521/</a>
+        
+</dd>
+<dt>Editors:</dt>
+<dd>Sebastian K&auml;bisch, Siemens AG</dd>
+<dd>Daniel Peintner, Siemens AG</dd>
+</dl>
+<p class="copyright">
+<a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> &copy; 2018 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>&reg;</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply.</p>
+<hr>
+</div>
+<div>
+
+<h2>
+<a id="abstract"></a>Abstract</h2>
+<p>Any EXI document is part of a set of EXI documents that are logically equivalent
+                within an application context, but which vary in physical representation based on
+                differences permitted by the <a href="#exiSpec">[EXI Format 1.0]</a>. This specification describes a
+                relatively simple method for generating a physical representation, the canonical
+                form, of an EXI document that accounts for the permissible differences. An example
+                of the applications targeted by this specification is one that needs to guarantee
+                non-repudiation using XML Signature yet allows certain flexibility for
+                intermediaries to reconstitute the documents before they reach final destination
+                without breaking the signatures. Note that two documents may have differing
+                canonical forms yet still be equivalent in a given context based on more elaborate
+                application-specific equivalence rules which is out of scope of this specification.
+            </p>
+</div>
+<div>
+
+<h2>
+<a id="status"></a>Status of this Document</h2>
+<p>
+                
+<em>This section describes the status of this document at the time of its
+                    publication. Other documents may supersede this document. A list of current W3C
+                    publications and the latest revision of this technical report can be found in
+                    the W3C technical reports index at <a href="https://www.w3.org/TR/">https://www.w3.org/TR/</a>.</em>
+            
+</p>
+<p>This is the Proposed Recommendation of the Canonical EXI specification and it has
+                been produced by the <a href="https://www.w3.org/XML/EXI/">EXI Working
+                Group</a>. This document is intended to become a W3C Recommendation.</p>
+<p>A <a href="https://services.w3.org/htmldiff?doc1=https://www.w3.org/TR/2016/CR-exi-c14n-20161103/&amp;doc2=https://www.w3.org/TR/2018/PR-exi-c14n-20180220/">diff-marked </a>version against the previous version of this document is available.  </p>
+<p>Comments about this document are welcome. Please send them to the <a href="mailto:public-exi-comments@w3.org">public-exi-comments@w3.org</a> mailing list (<a href="https://lists.w3.org/Archives/Public/public-exi-comments/">Archives</a>). Advisory Committee Representatives should consult their <a href="https://www.w3.org/2002/09/wbs/myQuestionnaires">WBS questionnaires</a>.</p>
+<p>The interoperability testing has been performed using test cases developed in the EXI <a href="https://github.com/w3c/exi-testsuite">testsuite</a>. An <a href="https://www.w3.org/XML/EXI/implementation-report-c14n/">implementation report</a> has been produced.</p>
+<p>Publication as a Proposed Recommendation does not imply endorsement by the W3C Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.</p>
+<p>This document was produced by a group operating under the <a href="https://www.w3.org/Consortium/Patent-Policy/">W3C Patent Policy</a>. W3C maintains a <a rel="disclosure" href="https://www.w3.org/2004/01/pp-impl/38502/status">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/Consortium/Patent-Policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/Consortium/Patent-Policy/#sec-Disclosure">section 6 of the W3C Patent Policy</a>.</p>
+<p>This document is governed by the <a id="w3c_process_revision" href="https://www.w3.org/2018/Process-20180201/">1 February 2018 W3C Process Document</a>. </p>
+</div>
+<nav id="toc">
+
+<h2>
+<a id="contents"></a>Table of Contents</h2>
+<ol class="toc">
+<li>
+<a href="#introduction"><span class="secno">1. </span><span class="content">Introduction</span></a>
+
+<ol class="toc">
+
+<li>
+<a href="#conventions"><span class="secno">1.1 </span><span class="content">Notational Conventions and Terminology</span></a>
+
+<ol class="toc"></ol>
+</li>
+
+<li>
+<a href="#motivation"><span class="secno">1.2 </span><span class="content">Motivation</span></a>
+
+<ol class="toc"></ol>
+</li>
+
+<li>
+<a href="#N65788"><span class="secno">1.3 </span><span class="content">Applications</span></a>
+
+<ol class="toc"></ol>
+</li>
+</ol>
+</li>
+<li>
+<a href="#canonicalEXI"><span class="secno">2. </span><span class="content">Canonical EXI Stream</span></a>
+
+<ol class="toc">
+
+<li>
+<a href="#canonicalOptions"><span class="secno">2.1 </span><span class="content">Canonical EXI Options</span></a>
+
+<ol class="toc"></ol>
+</li>
+</ol>
+</li>
+<li>
+<a href="#canonicalHeader"><span class="secno">3. </span><span class="content">Canonical EXI Header</span></a>
+
+<ol class="toc"></ol>
+</li>
+<li>
+<a href="#canonicalBody"><span class="secno">4. </span><span class="content">Canonical EXI Body</span></a>
+
+<ol class="toc">
+
+<li>
+<a href="#exiAlignment"><span class="secno">4.1 </span><span class="content">EXI Alignment Options and Streams</span></a>
+
+<ol class="toc"></ol>
+</li>
+
+<li>
+<a href="#exiEvents"><span class="secno">4.2 </span><span class="content">EXI Event Selection</span></a>
+
+<ol class="toc">
+
+<li>
+<a href="#exiConventions"><span class="secno">4.2.1 </span><span class="content">Select productions according to specific conventions</span></a>
+
+</li>
+
+<li>
+<a href="#exiEventMatching"><span class="secno">4.2.2 </span><span class="content">Use the event that matches most precisely</span></a>
+
+</li>
+</ol>
+</li>
+
+<li>
+<a href="#exiContentHandling"><span class="secno">4.3 </span><span class="content">EXI Content Handling</span></a>
+
+<ol class="toc">
+
+<li>
+<a href="#excludeExtraneousEvents"><span class="secno">4.3.1 </span><span class="content">Exclude extraneous events </span></a>
+
+</li>
+
+<li>
+<a href="#whitespaceHandling"><span class="secno">4.3.2 </span><span class="content">Whitespace Handling</span></a>
+
+<a href="#whitespaceSimpleData"><span class="secno">4.3.2.1 </span><span class="content">Simple Whitespace Data</span></a>
+
+<a href="#whitespaceComplexData"><span class="secno">4.3.2.2 </span><span class="content">Complex Whitespace Data</span></a>
+
+</li>
+</ol>
+</li>
+
+<li>
+<a href="#exiStreamOrder"><span class="secno">4.4 </span><span class="content">Stream Order</span></a>
+
+<ol class="toc"></ol>
+</li>
+
+<li>
+<a href="#datatypes"><span class="secno">4.5 </span><span class="content">EXI Datatypes</span></a>
+
+<ol class="toc">
+
+<li>
+<a href="#dt-unsignedInteger"><span class="secno">4.5.1 </span><span class="content">Unsigned Integer</span></a>
+
+</li>
+
+<li>
+<a href="#dt-enumeration"><span class="secno">4.5.2 </span><span class="content">Enumeration</span></a>
+
+</li>
+
+<li>
+<a href="#dt-decimal"><span class="secno">4.5.3 </span><span class="content">Decimal</span></a>
+
+</li>
+
+<li>
+<a href="#dt-float"><span class="secno">4.5.4 </span><span class="content">Float</span></a>
+
+</li>
+
+<li>
+<a href="#dt-dateTime"><span class="secno">4.5.5 </span><span class="content">Date-Time</span></a>
+
+</li>
+
+<li>
+<a href="#dt-string"><span class="secno">4.5.6 </span><span class="content">String and String Table</span></a>
+
+</li>
+
+<li>
+<a href="#dt-RCS"><span class="secno">4.5.7 </span><span class="content">Restricted Character Sets</span></a>
+
+</li>
+
+<li>
+<a href="#dt-reprMap"><span class="secno">4.5.8 </span><span class="content">Datatype Representation Map</span></a>
+
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<a href="#references"><span class="secno">A </span><span class="content">References</span></a>
+
+<ol class="toc"></ol>
+</li>
+<li>
+<a href="#canonicalOptionsSchema"><span class="secno">B </span><span class="content">XML Schema for Canonical EXI Options Document</span></a>
+
+<ol class="toc"></ol>
+</li>
+<li>
+<a href="#designDecisions"><span class="secno">C </span><span class="content">Design Decisions</span></a> (Non-Normative)
+<ol class="toc">
+
+<li>
+<a href="#decisionXml"><span class="secno">C.1 </span><span class="content">Relationship to XML Security</span></a>
+
+<ol class="toc"></ol>
+</li>
+
+<li>
+<a href="#decisionUnicode"><span class="secno">C.2 </span><span class="content">No Unicode Normalization</span></a>
+
+<ol class="toc"></ol>
+</li>
+
+<li>
+<a href="#decisionDateTime"><span class="secno">C.3 </span><span class="content">Date-Time Canonicalization Option</span></a>
+
+<ol class="toc"></ol>
+</li>
+</ol>
+</li>
+<li>
+<a href="#examples"><span class="secno">D </span><span class="content">Canonical EXI Examples</span></a> (Non-Normative)
+<ol class="toc">
+
+<li>
+<a href="#exampleEventSelection"><span class="secno">D.1 </span><span class="content">EXI Event Selection</span></a>
+
+<ol class="toc"></ol>
+</li>
+
+<li>
+<a href="#exampleStreamOrder"><span class="secno">D.2 </span><span class="content">Stream Order</span></a>
+
+<ol class="toc"></ol>
+</li>
+
+<li>
+<a href="#exampleFloat"><span class="secno">D.3 </span><span class="content">EXI Floats</span></a>
+
+<ol class="toc"></ol>
+</li>
+
+<li>
+<a href="#exampleDateTime"><span class="secno">D.4 </span><span class="content">EXI Date-Times</span></a>
+
+<ol class="toc"></ol>
+</li>
+</ol>
+</li>
+<li>
+<a href="#exiApplications"><span class="secno">E </span><span class="content">Canonical EXI Applications</span></a> (Non-Normative)
+<ol class="toc">
+
+<li>
+<a href="#signatureProcessingSteps"><span class="secno">E.1 </span><span class="content">Signature Processing Steps</span></a>
+
+<ol class="toc"></ol>
+</li>
+
+<li>
+<a href="#exchangeCanonicalEXIOptions"><span class="secno">E.2 </span><span class="content">Exchange Canonical EXI Options (Best Practices)</span></a>
+
+<ol class="toc">
+
+<li>
+<a href="#N68072"><span class="secno">E.2.1 </span><span class="content">Example - XML Signature</span></a>
+
+</li>
+
+<li>
+<a href="#N68109"><span class="secno">E.2.2 </span><span class="content">Decision Criteria</span></a>
+
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<a href="#useful-reference"><span class="secno">F </span><span class="content">Useful References</span></a> (Non-Normative)
+<ol class="toc"></ol>
+</li>
+<li>
+<a href="#changes"><span class="secno">G </span><span class="content">Recent Specification Changes</span></a> (Non-Normative)
+<ol class="toc">
+
+<li>
+<a href="#N68143"><span class="secno">G.1 </span><span class="content">Changes from Candidate Recommendation</span></a>
+
+<ol class="toc"></ol>
+</li>
+
+<li>
+<a href="#N68181"><span class="secno">G.2 </span><span class="content">Changes from Last Call Working Draft</span></a>
+
+<ol class="toc"></ol>
+</li>
+</ol>
+</li>
+<li>
+<a href="#acknowledgements"><span class="secno">H </span><span class="content">Acknowledgements</span></a> (Non-Normative)
+<ol class="toc"></ol>
+</li>
+</ol>
+</nav>
+<hr>
+<div class="body">
+<div class="div1">
+
+<h2>
+<a id="introduction"></a>1. Introduction</h2>
+<p>The EXI 1.0 Recommendation <a href="#exiSpec">[EXI Format 1.0]</a> specifies the syntax of a class of
+                resources called EXI streams. It is possible for EXI streams that are equivalent for
+                the purposes of many applications to differ in physical representation. For example,
+                they may differ in their datatype representation and attribute ordering. It is the
+                goal of this specification to establish a method for determining whether two
+                documents are equivalent, or whether an application has not changed a document,
+                except for transformations permitted by EXI 1.0. </p>
+<div class="div2">
+
+<h3>
+<a id="conventions"></a>1.1 Notational Conventions and Terminology</h3>
+<p>The key words MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT,
+                    RECOMMENDED, MAY, and OPTIONAL, when they appear EMPHASIZED in this document,
+                    are to be interpreted as described in RFC 2119 <a href="#RFC2119">[IETF RFC 2119]</a>.
+                    </p>
+<p>The term <b>canonical</b> is used throughout this document to denote a
+                    normative form in regard to the physical representation. The term
+                        <b>canonical EXI</b> refers to EXI that is in canonical form produced
+                    by the method described in this specification. </p>
+<p>The term <b>sorted lexicographically</b> denotes lexicographical ordering
+                    of strings which is done by comparing character by character. Individual
+                    characters are ordered by comparing their Unicode code points. </p>
+</div>
+<div class="div2">
+
+<h3>
+<a id="motivation"></a>1.2 Motivation</h3>
+<p>Many environments and device classes have difficulties handling plain-text XML
+                    due to various reasons (e.g., document size and processing overhead). W3C's
+                    Efficient XML Interchange (EXI) Format has been developed to provide a solution
+                    to these issues and to extend the use of XML and its tools. </p>
+<p> With EXI, constrained environments and device classes (low memory, bandwidth,
+                    and processing power) have the possibility to be part of the XML world. However,
+                    some use cases also require a canonical representation of the XML-based data for
+                    comparison of logical and physical equivalence. Hence, supporting EXI
+                    canonicalization without going through plain-text XML where nothing else but EXI
+                    is available is needed. </p>
+<p>In addition, EXI canonicalization is useful for traditional XML users. For
+                    example, EXI canonicalization provides a type-aware canonicalization scheme that
+                    can discern that +1, 1, 1.0, 1e0 and 1E0 are equivalent representations of the
+                    same floating-point value. This allows intermediaries to use binding-models
+                    and/or type-aware processing without breaking signatures. Moreover, with a fast
+                    EXI processor, EXI canonicalization can be much faster than traditional XML
+                    canonicalization and can help address some of the well-known processing
+                    bottlenecks for XML security.</p>
+</div>
+<div class="div2">
+
+<h3>
+<a id="N65788"></a>1.3 Applications</h3>
+<p> One application field for the canonical form of an XML-based document or
+                    document subset is digital signature. During signature generation, the digest is
+                    computed over the canonical form of the document or the document subset
+                    respectively. The document is then transferred to the receiving party, which
+                    validates the signature by reading the document and computing a digest of the
+                    canonical form of the received document (see <a href="#signatureProcessingSteps"><b>E.1 Signature Processing Steps</b></a>). If there is equivalence, the receiving
+                    parties can ensure that the information content of the document has not been
+                    altered since it was signed. </p>
+<p>Although EXI supports plain-text XML Signature by preserving XML information such
+                    as comments and prefixes (see <a href="https://www.w3.org/TR/exi-best-practices/#signature"><cite>EXI Best Practices
+                        for XML Signature</cite></a>) this optional strategy is not the most
+                    efficient and is not well suited for all environments and use cases.
+                    </p>
+<p>It is the goal of this specification to provide a canonical EXI form for various
+                    use-cases. For example, restricted and very limited devices should be able to
+                    create or check against a canonical EXI stream. This applies to devices that may
+                    be able to speak only a given EXI language (according to an XML Schema) or
+                    support only a subset of all EXI features. </p>
+</div>
+</div>
+<div class="div1">
+
+<h2>
+<a id="canonicalEXI"></a>2. Canonical EXI Stream</h2>
+<p>The EXI specification defines an EXI stream as an EXI header followed by an EXI body.
+                In this sense a Canonical EXI stream is a <a href="#canonicalHeader"><b>3. Canonical EXI Header</b></a> followed
+                by a <a href="#canonicalBody"><b>4. Canonical EXI Body</b></a>.
+                </p>
+<p>EXI Canonicalization may be used as a canonicalization method algorithm in XML
+                Signature <a href="#xmlSignature">[XMLDSIG-CORE1]</a> and XML Encryption <a href="#xmlEncryption">[XMLENC-CORE1]</a>. This document specifies the following identifier 
+                </p>
+<p>
+<code>http://www.w3.org/TR/exi-c14n</code>
+</p>
+<div class="div2">
+
+<h3>
+<a id="canonicalOptions"></a>2.1 Canonical EXI Options</h3>
+<p>The <b>Canonical EXI Options</b> provide a single, simple, unambiguous way
+                    to express the EXI-C14N options. The following table describes the options that
+                    may be specified in the Canonical EXI Options document.</p>
+<a id="CanonicalEXIOptions"></a>
+<table class="tableBorders">
+<caption>Table 2-1. Canonical EXI Options in Canonical Options Document</caption>
+<tbody>
+<tr>
+<th>Canonical EXI Option</th><th>Description</th><th>Default Value</th>
+</tr>
+<tr>
+<td><a title="omitOptionsDocument" href="#omitOptionsDocument">omitOptionsDocument</a>
+                            </td><td>Omit EXI Options document</td><td>false</td>
+</tr>
+<tr>
+<td><a title="utcTime" href="#utcTime">utcTime</a>
+                            </td><td>Use Coordinated Universal Time (UTC)</td><td>false</td>
+</tr>
+</tbody>
+</table>
+<p>Appendix <a href="#canonicalOptionsSchema"><b>B XML Schema for Canonical EXI Options Document</b></a> provides an XML Schema
+                    describing the <b>Canonical EXI Options document</b>. This schema is
+                    designed for efficient transmission by utilizing
+                    <a href="https://www.w3.org/TR/exi/#options">EXI options</a>.</p>
+<p>
+                    [<a id="omitOptionsDocument" title="omitOptionsDocument">Definition</a>:  The
+                            <b>omitOptionsDocument option</b> specifies whether the <a href="https://www.w3.org/TR/exi/#key-optionsDoc"><cite>EXI Options
+                            document</cite></a> is omitted. ]
+                </p>
+<p>
+                    [<a id="utcTime" title="utcTime">Definition</a>:  The <b>utcTime option</b> is used to
+                        specify whether Date-Time values must be represented using Coordinated
+                        Universal Time (UTC, sometimes called "Greenwich Mean Time"). ]
+                </p>
+</div>
+</div>
+<div class="div1">
+
+<h2>
+<a id="canonicalHeader"></a>3. Canonical EXI Header</h2>
+<p>Each EXI stream begins with an EXI header. The EXI header identifies the version of
+                the EXI format being used and specifies the options used to process the body of the
+                EXI stream. The EXI header has the following structure: </p>
+<table class="tableBorders">
+<tbody>
+<tr>
+<td style="text-align: center;">[ EXI Cookie ]</td><td style="text-align: center;"> Distinguishing Bits </td><td style="text-align: center;">
+                            
+<table class="tableNoBorders">
+<tbody>
+<tr>
+<td style="text-align: center; ">Presence Bit</td>
+</tr>
+<tr>
+<td style="text-align: center;">for EXI Options</td>
+</tr>
+</tbody>
+</table>
+                        
+</td><td style="text-align: center;">
+                            
+<table class="tableNoBorders">
+<tbody>
+<tr>
+<td style="text-align: center;">EXI Format</td>
+</tr>
+<tr>
+<td style="text-align: center;">Version</td>
+</tr>
+</tbody>
+</table>
+                        
+</td><td style="text-align: center;">[EXI Options]</td><td style="text-align: center;">[Padding Bits]</td>
+</tr>
+</tbody>
+</table>
+<p>A Canonical EXI Header MUST NOT begin with the optional EXI Cookie, and padding bits
+                (if any) MUST always be represented as a sequence of 0 (zero) bits. </p>
+<p>If the Canonical EXI Option <a title="omitOptionsDocument" href="#omitOptionsDocument">omitOptionsDocument</a> is equal to <code>true</code> the Presence Bit
+                for EXI Options MUST be 0 (false) to indicate that the fifth part of the EXI Header,
+                the EXI Options, is absent. If the Canonical EXI Option <a title="omitOptionsDocument" href="#omitOptionsDocument">omitOptionsDocument</a> is equal to
+                    <code>false</code>, the Presence Bit for the EXI Options MUST be 1 (true) to
+                indicate the EXI Options are present.
+                
+            </p>
+<p>The <a href="https://www.w3.org/TR/exi/#options">EXI Options</a> are represented
+                as an EXI Options
+                document.
+                That said, the subsequently described canonicalization steps expect as input a set
+                of EXI Options (or respectively an EXI options document) and produce as output a
+                canonicalized set of EXI options that MUST be represented as <a href="#canonicalBody"><b>4. Canonical EXI Body</b></a>. </p>
+<p>A canonical EXI Options document MUST respect the following constraints.</p>
+<ol class="enumar">
+<li>
+<p>An EXI Options element <a href="http://www.w3.org/TR/exi/#key-preserveOption">blockSize</a> that
+                        matches the default value (i.e., &lt;blockSize&gt;1000000&lt;/blockSize&gt;)
+                        MUST be omitted.
+                        </p>
+</li>
+<li>
+<p>The element <a href="https://www.w3.org/TR/exi/#key-preserveOption">blockSize</a> MUST be omitted if neither compression nor pre-compress
+                        is present.</p>
+</li>
+<li>
+<p>When the alignment option <a href="https://www.w3.org/TR/exi/#key-compressionOption">compression</a>
+                        is set, <a href="https://www.w3.org/TR/exi/#key-precompression">pre-compress</a> MUST be used instead of <a href="https://www.w3.org/TR/exi/#key-compressionOption">compression</a>.</p>
+</li>
+<li>
+<p>When the value of the Preserve.lexicalValues fidelity option is true the
+                        element <a href="https://www.w3.org/TR/exi/#key-datatypeRepresentationOption">datatypeRepresentationMap</a> MUST be omitted. When the value of the
+                        Preserve.lexicalValues fidelity option is false and the element <a href="https://www.w3.org/TR/exi/#key-datatypeRepresentationOption">datatypeRepresentationMap</a> does have nested element tuples (tuple
+                        of schema datatype and datatype representation), the tuples are to be sorted
+                        lexicographically according to the schema datatype first by {name} then by
+                        {namespace}. Moreover, the <a href="https://www.w3.org/TR/exi/#eventTypes">EXI event</a> sequence of each nested element MUST be Start Element
+                        (SE) followed by End Element (EE). Mappings that match the default built-in
+                        EXI datatype representations map (e.g.,
+                        {http://www.w3.org/2001/XMLSchema}base64Binary &rarr;
+                        {http://www.w3.org/2009/exi}base64Binary) MUST be omitted.</p>
+</li>
+<li>
+<p>The <a href="http://www.w3.org/TR/exi/#key-userMetaData">user defined
+                            meta-data</a> MUST NOT be used unless it conveys a convention used by
+                        the application. At the time of writing the only available convention is the
+                            <a href="#exiProfile">[EXI Profile]</a>. The associated exi:p element MUST always be
+                        represented using the following sequence of EXI events: A SE(exi:p) event,
+                        followed by an AT(xsi:type)="xsd:decimal" event, followed by a CH event,
+                        followed by an EE event. </p>
+<div class="note">
+<p class="prefix">
+<b>Note:</b>
+</p>
+<p> The user defined meta-data conveys auxiliary information and does not
+                            alter or extend the EXI data format. Hence it is deemed acceptable to
+                            omit this information.</p>
+</div>
+</li>
+<li>
+<p>Elements that are necessary to structure the EXI options document according
+                        to the XML schema (i.e. lesscommon, uncommon, alignment,
+                        datatypeRepresentationMap, preserve and common) MUST be omitted
+                            <em>unless</em> there is at least one nested element according to
+                        the previous steps.</p>
+</li>
+</ol>
+<p>The example below illustrates some requirements and the associated modifications that
+                have been described.</p>
+<div class="exampleOuter">
+
+<div class="exampleHeader">
+<a id="N66162"></a><i><span>Example 3-1. </span>EXI Options vs. Canonical EXI Options</i>
+</div>
+<table style="border: 0px;">
+<tbody>
+<tr>
+<td style="vertical-align: text-top;">
+<div class="exampleInner">
+<pre>&lt;exi:header 
+    xmlns:exi="http://www.w3.org/2009/exi"&gt;
+    &lt;exi:lesscommon&gt;
+        &lt;exi:preserve/&gt;
+        &lt;exi:blockSize&gt;1000000&lt;/exi:blockSize&gt;
+    &lt;/exi:lesscommon&gt;
+    &lt;exi:common&gt;
+        &lt;exi:compression/&gt;
+        &lt;exi:fragment/&gt;
+    &lt;/exi:common&gt;
+&lt;/exi:header&gt;</pre>
+</div>
+</td><td> &rarr; </td><td style="vertical-align: text-top;">
+<div class="exampleInner">
+<pre>&lt;exi:header 
+   xmlns:exi="http://www.w3.org/2009/exi"&gt;
+   &lt;exi:lesscommon&gt;
+       &lt;exi:uncommon&gt;
+           &lt;exi:alignment&gt;
+               &lt;exi:pre-compress/&gt;
+           &lt;/exi:alignment&gt; 
+       &lt;/exi:uncommon&gt; 
+   &lt;/exi:lesscommon&gt;   
+   &lt;exi:common&gt;
+        &lt;exi:fragment/&gt;
+   &lt;/exi:common&gt;
+&lt;/exi:header&gt;
+                            
+                            
+                            </pre>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>&nbsp;</p>
+<div class="issue">
+<p class="prefix">
+<b>Warning:</b>
+</p>
+                
+<p> Applications that use Canonical EXI need to ensure that the senders and
+                    the receivers of EXI documents are using the same schema information.
+                    This is regardless schemaId is included in the header options or not.
+                    Failure to do so may result in producing an uncomparable (and perhaps
+                    undecipherable) EXI document.</p>
+            
+</div>
+</div>
+<div class="div1">
+
+<h2>
+<a id="canonicalBody"></a>4. Canonical EXI Body</h2>
+<p>The subsequently described EXI Canonicalization steps and algorithms expect as input
+                XML information items. Each information item is mapped to its respective set of EXI
+                events (see <a href="https://www.w3.org/TR/exi/#eventTypes"><cite>Table 4-1 in EXI
+                    specification</cite></a>) and produces as output a canonicalized EXI body
+                stream.
+                
+                Following the presented algorithms guarantees that logically-identical documents
+                produce identical serialized EXI body stream representations (assuming the same EXI
+                coding options). </p>
+<p> Each event in an EXI stream participates in a mapping system that relates events to
+                XML Information Items so that an EXI document or an EXI fragment as a whole serves
+                to represent an <a href="#XMLInfoset">[XML Information Set]</a>. Appendix B Infoset Mapping of <a href="#exiSpec">[EXI Format 1.0]</a> describes the mapping system in detail. </p>
+<div class="note">
+<p class="prefix">
+<b>Note:</b>
+</p>
+<p>An EXI stream can be passed to a final recipient over multiple intermediate
+                    nodes. In general, it is feasible to parse and re-encode the EXI stream on such
+                    an intermediate node without affecting the canonical EXI stream. However, please
+                    note that alternating <a href="https://www.w3.org/TR/exi/#options"><cite>EXI
+                        Options</cite></a> (e.g., <a href="https://www.w3.org/TR/exi/#key-preserveOption"><cite>preserve
+                        option</cite></a> or <a href="https://www.w3.org/TR/exi/#key-schemaIdOption"><cite>schemaId</cite></a>)
+                    used to encode the body of the EXI stream, may lead to irrecoverable data loss
+                    or differences. The same issue applies to XML intermediate nodes (e.g.,
+                    intermediate nodes removing DTDs et cetera). </p>
+</div>
+<div class="div2">
+
+<h3>
+<a id="exiAlignment"></a>4.1 EXI Alignment Options and Streams</h3>
+<p>EXI provides four alignment options, namely <em>bit-packed</em>,
+                        <em>byte-alignment</em>, <em>pre-compression</em>, and
+                        <em>compression</em>. </p>
+<p> The canonicalized EXI form is the resulting EXI stream following the rules
+                    defined in this document. When the alignment option <em>compression</em> is
+                    set for an EXI stream, its canonical form is computed as if the EXI stream was
+                    encoded using the alignment option <em>pre-compression</em> instead.</p>
+<p>EXI processors may make use of padding bits, for example to make the length of
+                    the EXI stream byte-aligned. If used, the padding bits in a Canonical EXI stream
+                    MUST always be represented as a sequence of 0 (zero) bits. </p>
+</div>
+<div class="div2">
+
+<h3>
+<a id="exiEvents"></a>4.2 EXI Event Selection</h3>
+<p> EXI processors represent a given event such as a start element or an attribute
+                    by serializing an <a href="https://www.w3.org/TR/exi/#key-eventcode"><cite>event
+                        code</cite></a> first, followed by the corresponding event content. Each
+                    event code is represented by a sequence of 1 to 3 parts that uniquely identifies
+                    an event. </p>
+<p> In situations where EXI grammars provide more than one possible event the
+                    canonical EXI form prescribes which event (and respectively which event code)
+                    has to be chosen. That said, it is not uncommon that an EXI processor has
+                    certain flexibility in choosing the appropriate EXI grammar production, or
+                    respectively the appropriate event. </p>
+<p>Canonical EXI processors MUST follow a two  step process for
+                    selecting the one valid event(-code):</p>
+<ul>
+<li>
+<p>
+<a href="#exiConventions"><b>4.2.1 Select productions according to specific conventions</b></a>
+</p>
+</li>
+<li>
+<p>
+<a href="#exiEventMatching"><b>4.2.2 Use the event that matches most precisely</b></a>
+</p>
+</li>
+</ul>
+<div class="div3">
+
+<h4>
+<a id="exiConventions"></a>4.2.1 Select productions according to specific conventions</h4>
+<p>The availability of grammar productions is subject to the convention used by
+                        the application. A prominent convention is the <a href="#exiProfile">[EXI Profile]</a>,
+                        which is more restrictive in regard to which production is usable than the
+                            <a href="#exiSpec">[EXI Format 1.0]</a> specification. </p>
+<div class="note">
+<p class="prefix">
+<b>Note:</b>
+</p>
+<p>The EXI Profile uses the xsi:type attribute to switch from an evolving
+                            built-in element grammar to a non-evolving schema-informed grammar. The
+                            specification mentions in particular the xsd:anyType complex type but
+                            does not require this specific type. Canonical EXI processors MUST use
+                            xsd:anyType.</p>
+</div>
+</div>
+<div class="div3">
+
+<h4>
+<a id="exiEventMatching"></a>4.2.2 Use the event that matches most precisely</h4>
+<p>After excluding productions that are not usable (according to the convention
+                        in use) a canonical EXI processor MUST use the event that matches the
+                        following prioritized heuristics most precisely.</p>
+<ol class="enumar">
+<li>
+<p>For Start Element (SE) events the order is as follows: </p>
+<ol class="enumla">
+<li>
+<p>SE ( <em>qname</em> )</p>
+</li>
+<li>
+<p>SE ( <em>uri : *</em> ) </p>
+</li>
+<li>
+<p>SE ( <em>*</em> )</p>
+</li>
+</ol>
+<p>For Character (CH) events the order is as follows: </p>
+<ol class="enumla">
+<li>
+<p>CH [schema-typed value]</p>
+</li>
+<li>
+<p>CH [untyped value]</p>
+</li>
+</ol>
+<p>For Attribute (AT) events the order is as follows: </p>
+<ol class="enumla">
+<li>
+<p>AT ( <em>qname</em> ) [schema-typed value]</p>
+</li>
+<li>
+<p>AT ( <em>qname</em> ) [untyped value]</p>
+</li>
+<li>
+<p>AT ( <em>uri : *</em> )</p>
+</li>
+<li>
+<p>AT ( <em>*</em> )</p>
+</li>
+<li>
+<p>AT ( <em>*</em> ) [untyped value]</p>
+</li>
+</ol>
+</li>
+<li>
+<p>IF the representational accuracy is unaffected, then use the event
+                                with the least number event code parts.</p>
+</li>
+</ol>
+<div class="note">
+<p class="prefix">
+<b>Note:</b>
+</p>
+<p>The verification is solely based on EXI grammars and EXI
+                            datatypes. A Canonical EXI processor does not account for XML schema validity
+                            (similar to an EXI processor) in order to maintain high-performance
+                            efficiency.</p>
+</div>
+<p>The appendix section <a href="#exampleEventSelection"><b>D.1 EXI Event Selection</b></a> depicts one
+                        concrete example for choosing the correct event.</p>
+</div>
+</div>
+<div class="div2">
+
+<h3>
+<a id="exiContentHandling"></a>4.3 EXI Content Handling</h3>
+<div class="div3">
+
+<h4>
+<a id="excludeExtraneousEvents"></a>4.3.1 Exclude extraneous events </h4>
+<p>The EXI grammars permit EXI processors to include extraneous empty-string
+                        CH&nbsp;("") events that are not required by the grammar and do not change
+                        the resulting XML Infoset of the produced document.</p>
+<p>Canonical EXI MUST exclude extraneous CH&nbsp;("") events unless they are
+                        required by the EXI grammar.</p>
+<div class="note">
+<p class="prefix">
+<b>Note:</b>
+</p>
+<p>EXI grammars may still require empty-string CH&nbsp;("") events. An example are elements typed as String (e.g.,
+                            element <code>foo</code> typed as <code>xsd:string</code>).
+                            When Strict is True an event sequence <em>SE&nbsp;(foo) EE</em> cannot be used.
+                            Instead <em>SE&nbsp;(foo) CH&nbsp;("") EE</em> is required for the following strict simple type grammar. </p>
+<div class="exampleOuter">
+
+<div class="exampleHeader">
+<a id="exampleSimpleTypeGrammar"></a><i><span>Example 4-1. </span><em>Strict</em> Simple Type grammar</i>
+</div>
+<table>
+<tbody>
+<tr>
+<td>Type <sub>i, 0</sub></td><td>:</td><td></td>
+</tr>
+<tr>
+<td></td><td></td><td>CH[schema-typed value] Type <sub>i, 1</sub></td>
+</tr>
+<tr>
+<td>Type <sub>i, 1</sub></td><td>:</td><td></td>
+</tr>
+<tr>
+<td></td><td></td><td>EE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Moreover, applications due to various reasons may send a series of
+                        consecutive CH events. Canonical EXI MUST merge consecutive CH events to a
+                            <em>single</em> CH event.</p>
+</div>
+<div class="div3">
+
+<h4>
+<a id="whitespaceHandling"></a>4.3.2 Whitespace Handling</h4>
+<p>In general, Canonical EXI SHALL not change XML Information items. One
+                        exception to this statement is significant whitespace characters. Except as
+                        specified below, Canonical EXI MUST respect
+                            <code>xml:space="preserve"</code>.
+                        </p>
+<div class="note">
+<p class="prefix">
+<b>Note:</b>
+</p>
+<ul>
+<li>
+<p>It is not possible to respect whitespace-handling rules in all
+                                    situations. For example when the grammar in effect is a
+                                    schema-informed grammar and xml:space is "preserve". For
+                                    example, the value " 123 " (with a leading and trailing space
+                                    character) typed as xsd:int cannot preserve the heading and
+                                    trailing whitespace when typed datatype representation is
+                                    used.</p>
+</li>
+<li>
+<p>Use-cases requiring whitespace preservation might consider using
+                                    the <a href="https://www.w3.org/TR/exi/#key-preserveLexicalValuesOption"><cite> Preserve.lexicalValues</cite></a> option set to true. When
+                                    Preserve.lexicalValues is true CH [schema-typed value] and AT
+                                    [schema-typed value] productions MUST be used in all cases given
+                                    that the restricted character sets can represent any string
+                                    value. </p>
+</li>
+</ul>
+</div>
+<p>When the current <code>xml:space</code> is not <code>"preserve"</code>,
+                        different rules apply for <a href="#whitespaceSimpleData"><b>4.3.2.1 Simple Whitespace Data</b></a> and <a href="#whitespaceComplexData"><b>4.3.2.2 Complex Whitespace Data</b></a>.</p>
+<div class="div4">
+
+<h5>
+<a id="whitespaceSimpleData"></a>4.3.2.1 Simple Whitespace Data</h5>
+<p>The term <em>simple data</em> refers to data between SE and EE (i.e.,
+                            Start&nbsp;Element tag followed by End&nbsp;Element tag).</p>
+<p>When the grammar in effect is a schema-informed grammar
+                            use <a href="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dt-whiteSpace">whiteSpace facet</a> if any to normalize whitespaces.</p>
+<p>When the grammar in effect is a schema-less grammar, then all whitespaces
+                            MUST be preserved.</p>
+</div>
+<div class="div4">
+
+<h5>
+<a id="whitespaceComplexData"></a>4.3.2.2 Complex Whitespace Data</h5>
+<p>The term <em>complex data</em> refers to data between SE and SE, EE
+                            and SE, or EE and EE.</p>
+<p>For complex data, whitespaces nodes (i.e., strings that consist solely of
+                            whitespaces) MUST be removed.</p>
+</div>
+</div>
+</div>
+<div class="div2">
+
+<h3>
+<a id="exiStreamOrder"></a>4.4 Stream Order</h3>
+<p>In general, a canonical EXI processor SHALL NOT change the order of the input
+                    sequence. The only exceptions to this statement are sequences of attributes
+                    and/or namespace declarations. </p>
+<p>The EXI specification defines that namespace (NS) and attribute (AT) events
+                    associated with a given element occur directly after the start element (SE)
+                    event in the following order:</p>
+<table class="tableBorders" style="padding: 10px;">
+<tbody>
+<tr>
+<td style="text-align: center;">NS</td><td style="text-align: center;">NS</td><td style="text-align: center;">...</td><td style="text-align: center;">NS</td><td style="text-align: center;"> AT (xsi:type) </td><td style="text-align: center;"> AT (xsi:nil) </td><td style="text-align: center;">AT</td><td style="text-align: center;">AT</td><td style="text-align: center;">...</td><td style="text-align: center;">AT</td>
+</tr>
+</tbody>
+</table>
+<p>In addition, canonical EXI specifies that namespace declarations for a given
+                    element MUST be sorted lexicographically according to the NS prefix. Further,
+                    canonical EXI strictly requires that an xsi:type or an xsi:nil attribute MUST
+                    occur before other AT events even if it does not impact grammar selection.
+                    Moreover, attributes other than xsi:type and xsi:nil for a given element MUST be
+                    sorted lexicographically, first by qname local-name then by qname uri. </p>
+<p></p>
+<div class="note">
+<p class="prefix">
+<b>Note:</b>
+</p>
+<p>Optimizations such as pruning <em>insignificant</em> xsi:type values
+                        (e.g., <code>xsi:type="xsd:string"</code> for string values) or
+                            <em>insignificant</em> xsi:nil values (e.g.,
+                            <code>xsi:nil="false"</code>) are prohibited for a Canonical EXI
+                        processor.</p>
+<p>For example, EXI Profile uses the xsi:type attribute (e.g.,
+                            <code>xsi:type="xsd:anyType"</code>) to switch to a non-evolving
+                        schema-informed grammar. </p>
+</div>
+</div>
+<div class="div2">
+
+<h3>
+<a id="datatypes"></a>4.5 EXI Datatypes</h3>
+<p> This section describes the built-in EXI datatype representations used for
+                    representing content items in canonical EXI streams. </p>
+<p> When the <a href="https://www.w3.org/TR/exi/#key-preserveLexicalValuesOption"><cite>
+                        Preserve.lexicalValues</cite></a> option is true, individual items are
+                    represented as String. Each value MUST be represented as a String with the
+                    associated restricted character set, if such a set is defined for the associated
+                    datatype representation (see <a href="https://www.w3.org/TR/exi/#builtInRestrictedStrings"><cite> Restricted
+                        Character Sets for Built-in EXI Datatype Representations</cite></a>). String
+                    content items associated with a restricted character MUST also follow the rules
+                    described in <a href="#dt-RCS"><b>4.5.7 Restricted Character Sets</b></a>. </p>
+<p> When the <a href="https://www.w3.org/TR/exi/#key-preserveLexicalValuesOption"><cite>
+                        Preserve.lexicalValues</cite></a> option is false, a value content item MUST
+                    be represented with the associated datatype representation. The following
+                    sub-sections describe the Canonical EXI behavior for datatypes that otherwise
+                    may not lead to a uniquely defined representation. </p>
+<div class="div3">
+
+<h4>
+<a id="dt-unsignedInteger"></a>4.5.1 Unsigned Integer</h4>
+<p>The EXI specification defines that the <a href="https://www.w3.org/TR/exi/#encodingUnsignedInteger"><cite>Unsigned
+                            Integer</cite></a> datatype representation supports unsigned integer
+                        numbers of arbitrary magnitude. EXI processors SHOULD support arbitrarily
+                        large Unsigned Integer values. EXI processors MUST support Unsigned Integer
+                        values less than 2147483648.</p>
+<p>Canonical EXI processors MUST use the Unsigned Integer datatype
+                        representation even if a value goes beyond the value 2147483647.</p>
+</div>
+<div class="div3">
+
+<h4>
+<a id="dt-enumeration"></a>4.5.2 Enumeration</h4>
+<p> The <a href="https://www.w3.org/TR/exi/#encodingEnumerations"><cite>EXI
+                            Enumeration</cite></a> assigns to each item an unsigned integer value
+                        that corresponds to its ordinal position in the enumeration in schema-order
+                        starting with position zero. When there is more than one item that
+                        represents the same value in the enumeration, the value MUST be represented
+                        by using the first ordinal position that represents the value. </p>
+</div>
+<div class="div3">
+
+<h4>
+<a id="dt-decimal"></a>4.5.3 Decimal</h4>
+<p> The <a href="https://www.w3.org/TR/exi/#encodingDecimal"><cite>EXI
+                            Decimal</cite></a> datatype is a Boolean sign followed by two Unsigned
+                        Integers. A sign value of zero (0) is used to represent positive Decimal
+                        values and a sign value of one (1) is used to represent negative Decimal
+                        values. The first Unsigned Integer represents the integral portion of the
+                        Decimal value. The second Unsigned Integer represents the fractional portion
+                        of the Decimal value with the digits in reverse order to preserve leading
+                        zeros. </p>
+<p>The canonical EXI Decimal MUST respect the following constraint. </p>
+<ul>
+<li>
+<p>The sign value MUST be zero (0) if both
+                                
+                                the integral portion and the fractional portion of the Decimal value
+                                are 0 (zero).</p>
+</li>
+</ul>
+</div>
+<div class="div3">
+
+<h4>
+<a id="dt-float"></a>4.5.4 Float</h4>
+<p> The <a href="https://www.w3.org/TR/exi/#encodingFloat"><cite>EXI
+                            Float</cite></a> datatype uses two consecutive EXI Integers.
+                        
+                        The first Integer represents the mantissa of the floating point number and
+                        the second Integer represents the base-10 exponent of the floating point
+                        number. </p>
+<p>The canonical EXI Float MUST respect the following constraints. </p>
+<ul>
+<li>
+<p>A mantissa value of -0 is not permitted.
+                                </p>
+</li>
+<li>
+<p>An exponent value of -0 is not permitted.
+                                
+                            </p>
+</li>
+<li>
+<p>If the mantissa is 0 and the exponent value is not -(2<sup>14</sup>)
+                                the exponent MUST be 0.</p>
+</li>
+<li>
+<p>If the mantissa is not 0, mantissas MUST have no trailing zeros.</p>
+</li>
+<li>
+<p>If the exponent value is -(2<sup>14</sup>) and the mantissa value is
+                                neither 1 nor -1, to indicate the special value not-a-number (NaN),
+                                the mantissa MUST be 0.</p>
+</li>
+</ul>
+<p>Given an EXI Float value that consists of one integer representing its
+                        mantissa and the other integer representing its exponent, Canonical EXI
+                        processors MUST find an equivalent canonical EXI Float that satisfies the
+                        above constraints, where the rules of determining equivalence are described
+                        below. </p>
+<p>Two floats A and B each denoted as (mantissa, exponent) pair of (mA, eA) and
+                        (mB, eB) where eA &gt;= eB are equivalent under the following circumstances. </p>
+<ol class="enumar">
+<li>
+<p>Both mantissa and exponent are the same between the two floats. </p>
+</li>
+<li>
+<p> Otherwise, if two exponents are different (i.e. eA &gt; eB), substitute
+                                A with A2 where A2 has exponent eB and mantissa mA *
+                                    10<sup>(eA-eB)</sup>. If A2 and B are equivalent values per the
+                                rule 1 above, A and B are equivalent. </p>
+</li>
+</ol>
+<p>The appendix section <a href="#exampleFloat"><b>D.3 EXI Floats</b></a> depicts one example
+                        algorithm for finding the canonical EXI Float that is equivalent to a given
+                        EXI Float value.</p>
+</div>
+<div class="div3">
+
+<h4>
+<a id="dt-dateTime"></a>4.5.5 Date-Time</h4>
+<p> The <a href="https://www.w3.org/TR/exi/#encodingDateTime"><cite>EXI
+                            Date-Time</cite></a> is a sequence of values representing the individual
+                        components of the Date-Time. </p>
+<p>The canonical EXI Date-Time MUST respect the following constraints. </p>
+<ul>
+<li>
+<p>The Hour value used to compute the Time component MUST NOT be 24.</p>
+</li>
+<li>
+<p>The optional FractionalSecs component MUST be omitted if its value is
+                                zero. </p>
+</li>
+<li>
+<p>If the Canonical EXI Option <a title="utcTime" href="#utcTime">utcTime</a>
+                                is equal to <code>true</code>, Date-Time values must be represented
+                                using Coordinated Universal Time (UTC, sometimes called "Greenwich
+                                Mean Time"). Doing so requires applying the algorithm defined in
+                                <a href="http://www.w3.org/TR/xmlschema-2/#adding-durations-to-dateTimes"><cite>
+                                    adding durations to dateTimes</cite></a> <a href="#schemaDatatypes2">[XML Schema Datatypes]</a>
+                                <em>without</em> modifying the value of seconds.</p>
+</li>
+</ul>
+</div>
+<div class="div3">
+
+<h4>
+<a id="dt-string"></a>4.5.6 String and String Table</h4>
+<p>The EXI String datatype representation is a length-prefixed sequence of
+                        characters. If no restricted character set is defined for the string, each
+                        character is represented by its Unicode code point. The Unicode standard
+                        allows multiple different representations of certain characters. A canonical
+                        EXI processor MUST NOT change the code points (see appendix <a href="#decisionUnicode"><b>C.2 No Unicode Normalization</b></a> for the rationale). </p>
+<p>In EXI a string value content item is assigned to two partitions, a "local"
+                        value partition and the global value partition (see <a href="https://www.w3.org/TR/exi/#encodingOptimizedForMisses">Partitions
+                            Optimized for Frequent use of String Literals</a>). When a string
+                        value is found in the global or "local" partition, it may be represented
+                        using a compact identifier. In Canonical EXI a string value MUST be
+                        represented using a compact identifier if possible. Unless a convention was
+                        indicated in <a href="#canonicalOptions"><b>2.1 Canonical EXI Options</b></a> by an application to dictate
+                        differently (e.g., EXI Profile parameter localValuePartitions set to "0"),
+                        EXI processors MUST first try to use the "local" compact identifier, and
+                        only when this is not successful then try to use the global compact
+                        identifier. </p>
+<div class="note">
+<p class="prefix">
+<b>Note:</b>
+</p>
+<ul>
+<li>
+<p>One of the reasons the attempt to represent the string value as a
+                                    "local" compact identifier may fail is because the string has
+                                    already been used as a "local" compact identifier previously.
+                                    EXI supports only one local partitions entry per value.</p>
+</li>
+<li>
+<p>When a string value is not found in the global or "local" value
+                                    partition a processor MAY also need to follow the rules
+                                    described in <a href="#dt-RCS"><b>4.5.7 Restricted Character Sets</b></a> according to the given
+                                    restricted character set, if available.</p>
+</li>
+</ul>
+</div>
+<p>Note that a Canonical EXI processor MUST also respect the XML schema
+                            <a href="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dt-whiteSpace">whiteSpace facet</a>, if defined.</p>
+</div>
+<div class="div3">
+
+<h4>
+<a id="dt-RCS"></a>4.5.7 Restricted Character Sets</h4>
+<p>
+                        
+<a href="https://www.w3.org/TR/exi/#restrictedCharSet"><cite>Restricted
+                            Character Sets</cite></a> are applied in EXI to restrict the characters
+                        of the string datatype. The canonical representation dictates that
+                        characters from the restricted character set MUST use the according <a href="https://www.w3.org/TR/exi/#encodingBoundedUnsigned"><span><em>n</em></span>-bit Unsigned Integer</a>.
+                        Hence, only characters that are not in the set SHALL be represented by the
+                            <em>n</em>-bit Unsigned Integer N followed by the Unicode code point
+                        for each character represented as an Unsigned Integer.</p>
+</div>
+<div class="div3">
+
+<h4>
+<a id="dt-reprMap"></a>4.5.8 Datatype Representation Map</h4>
+<p>The EXI option <a href="https://www.w3.org/TR/exi/#datatypeRepresentationMap"><cite>datatypeRepresentationMap</cite></a> may specify an alternate set of
+                        datatype representations for typed values in the EXI body stream. This
+                        specification does not define any canonicalization rules for alternate
+                        representations. Other specifications and/or groups making use of this
+                        feature MAY describe a canonical form.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="back">
+<div class="div1">
+
+<h2>
+<a id="references"></a>A References</h2>
+<dl>
+<dt class="label">
+<a id="exiSpec"></a>EXI Format 1.0</dt>
+<dd>
+                    
+<a href="https://www.w3.org/TR/2014/REC-exi-20140211/"><cite>Efficient XML Interchange (EXI) Format 1.0 (Second
+                    Edition)</cite></a>, John Schneider, Takuki Kamiya, Daniel Peintner, Rumen
+                    Kyusakov, Editors. World Wide Web Consortium. The latest version is available at
+                        <a href="https://www.w3.org/TR/exi/"> https://www.w3.org/TR/exi/</a>.   (See https://www.w3.org/TR/2014/REC-exi-20140211/.)</dd>
+<dt class="label">
+<a id="schemaDatatypes2"></a>XML Schema Datatypes</dt>
+<dd>
+                    
+<a href="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/"><cite>XML Schema Part 2: Datatypes Second Edition</cite></a> , P. Byron and
+                    A. Malhotra, Editors. World Wide Web Consortium, 2 May 2001, revised 28 October
+                    2004. The latest version is available at <a href="https://www.w3.org/TR/xmlschema-2/">
+                        https://www.w3.org/TR/xmlschema-2</a> .   (See https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/.)</dd>
+<dt class="label">
+<a id="xmlCanonicalSpec"></a>Canonical XML</dt>
+<dd>
+                    
+<a href="https://www.w3.org/TR/2008/REC-xml-c14n11-20080502/"><cite>Canonical XML Version 1.1</cite></a> John Boyer and Glenn Marcy,
+                    Editors. World Wide Web Consortium, W3C Recommendation 2 May 2008. The latest
+                    version is available at <a href="https://www.w3.org/TR/xml-c14n11/">
+                        https://www.w3.org/TR/xml-c14n11/</a> .   (See https://www.w3.org/TR/2008/REC-xml-c14n11-20080502/.)</dd>
+<dt class="label">
+<a id="XMLInfoset"></a>XML Information Set</dt>
+<dd>
+                    
+<a href="https://www.w3.org/TR/2004/REC-xml-infoset-20040204/"><cite>XML Information Set (Second Edition)</cite></a>, J. Cowan and R.
+                    Tobin, Editors. World Wide Web Consortium, 24 October 2001, revised 4 February
+                    2004. This version is https://www.w3.org/TR/2004/REC-xml-infoset-20040204. The
+                    latest version is available at <a href="https://www.w3.org/TR/xml-infoset/">
+                        https://www.w3.org/TR/xml-infoset</a>.   (See https://www.w3.org/TR/2004/REC-xml-infoset-20040204/.)</dd>
+<dt class="label">
+<a id="exiImpacts"></a>EXI Impacts</dt>
+<dd>
+                    
+<a href="https://www.w3.org/TR/2008/WD-exi-impacts-20080903/"><cite>Efficient XML Interchange (EXI) Impacts</cite></a> , Jaakko
+                    Kangasharju, Editor. World Wide Web Consortium. The latest version is available
+                    at <a href="https://www.w3.org/TR/exi-impacts/">
+                        https://www.w3.org/TR/exi-impacts/</a> .   (See https://www.w3.org/TR/2008/WD-exi-impacts-20080903/.)</dd>
+<dt class="label">
+<a id="exiBestPractices"></a>EXI Best Practices</dt>
+<dd>
+                    
+<a href="https://www.w3.org/TR/2007/WD-exi-best-practices-20071219/"><cite>Efficient XML Interchange (EXI) Best Practices</cite></a> , Mike Cokus
+                    and Daniel Vogelheim, Editors. World Wide Web Consortium. The latest version is
+                    available at <a href="https://www.w3.org/TR/exi-best-practices/">
+                        https://www.w3.org/TR/exi-best-practices/</a> .   (See https://www.w3.org/TR/2007/WD-exi-best-practices-20071219/.)</dd>
+<dt class="label">
+<a id="exiProfile"></a>EXI Profile</dt>
+<dd>
+                    
+<a href="https://www.w3.org/TR/2012/WD-exi-profile-20120731/"><cite>Efficient XML Interchange (EXI) Profile</cite></a> , Youenn Fablet and
+                    Daniel Peintner, Editors. World Wide Web Consortium. The latest version is
+                    available at <a href="https://www.w3.org/TR/exi-profile/">
+                        https://www.w3.org/TR/exi-profile/</a> .   (See https://www.w3.org/TR/2012/WD-exi-profile-20120731/.)</dd>
+<dt class="label">
+<a id="xmlSignature"></a>XMLDSIG-CORE1</dt>
+<dd>
+                    
+<a href="https://www.w3.org/TR/2013/REC-xmldsig-core1-20130411/"><cite>XML Signature Syntax and Processing Version 1.1</cite></a>, Donald
+                    Eastlake Joseph Reagle, David Solo, Frederick Hirsch, Magnus Nystr&ouml;m, Thomas
+                    Roessler, Kelvin Yiu, Editors. Mark Bartel, John Boyer, Barb Fox, Brian
+                    LaMacchia, Ed Simon, Authors. World Wide Web Consortium, W3C Recommendation 11
+                    April 2013. The latest version is available at <a href="https://www.w3.org/TR/xmldsig-core1/">https://www.w3.org/TR/xmldsig-core1/</a>.   (See https://www.w3.org/TR/2013/REC-xmldsig-core1-20130411/.)</dd>
+<dt class="label">
+<a id="charModelFundamentals"></a>Character Model Fundamentals</dt>
+<dd>
+                    
+<a href="https://www.w3.org/TR/2005/REC-charmod-20050215/"><cite>Character Model for the World Wide Web 1.0: Fundamentals </cite></a>
+                    Martin J. D&uuml;rst, Fran&ccedil;ois Yergeau, Richard Ishida, Misha Wolf, Tex Texin,
+                    Authors. World Wide Web Consortium, W3C Recommendation 15 February 2005. The
+                    latest version is available at <a href="https://www.w3.org/TR/charmod/">https://www.w3.org/TR/charmod/</a>
+                  (See https://www.w3.org/TR/2005/REC-charmod-20050215/.)</dd>
+<dt class="label">
+<a id="charModelIdentity"></a>Character Model Identity</dt>
+<dd>
+                    
+<a href="https://www.w3.org/TR/2015/WD-charmod-norm-20151119/"><cite>Character Model for the World Wide Web: String Matching and
+                        Searching</cite></a> Addison Phillips, Authors. World Wide Web Consortium,
+                    W3C Working Draft 19 November 2015. The latest version is available at <a href="https://www.w3.org/TR/charmod-norm/">https://www.w3.org/TR/charmod-norm/</a>
+                  (See https://www.w3.org/TR/2015/WD-charmod-norm-20151119/.)</dd>
+<dt class="label">
+<a id="xmlEncryption"></a>XMLENC-CORE1</dt>
+<dd>
+                    
+<a href="https://www.w3.org/TR/2013/REC-xmlenc-core1-20130411/"><cite>XML Encryption Syntax and Processing Version 1.1</cite></a> Donald
+                    Eastlake, Joseph Reagle, Frederick Hirsch, Thomas Roessler, Editors. Takeshi
+                    Imamura, Blair Dillaway, Ed Simon, Kelvin Yiu, Magnus Nystr&ouml;m, Authors. World
+                    Wide Web Consortium, W3C Recommendation 11 April 2013. The latest version is
+                    available at <a href="https://www.w3.org/TR/xmlenc-core1/">
+                        https://www.w3.org/TR/xmlenc-core1/</a>.   (See https://www.w3.org/TR/2013/REC-xmlenc-core1-20130411/.)</dd>
+<dt class="label">
+<a id="RFC2119"></a>IETF RFC 2119</dt>
+<dd>
+                    
+<a href="http://www.ietf.org/rfc/rfc2119.txt"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>,
+                    S. Bradner, Author. Internet Engineering Task Force, June 1999. Available at
+                    http://www.ietf.org/rfc/rfc2119.txt.   (See http://www.ietf.org/rfc/rfc2119.txt.)</dd>
+<dt class="label">
+<a id="RFC3986"></a>IETF RFC 3986</dt>
+<dd>
+                    
+<a href="https://tools.ietf.org/rfc/rfc3986.txt"><cite> Uniform Resource Identifier (URI): Generic Syntax</cite></a>, T.
+                    Berners-Lee, R. Fielding, L. Masinter, Authors. Internet Engineering Task Force,
+                    January 2005. Available at https://tools.ietf.org/rfc/rfc3986.txt.   (See https://tools.ietf.org/rfc/rfc3986.txt.)</dd>
+</dl>
+</div>
+<div class="div1">
+
+<h2>
+<a id="canonicalOptionsSchema"></a>B XML Schema for Canonical EXI Options Document</h2>
+<p>The following schema describes the Canonical EXI options document for communicating
+                all the Canonical EXI options. It is designed to reuse the <a href="https://www.w3.org/TR/exi/#key-optionsDoc"><cite>EXI options
+                document</cite></a>.</p>
+<div class="exampleInner">
+<pre>
+&lt;xsd:schema targetNamespace="http://www.w3.org/2016/exi-c14n"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:exi="http://www.w3.org/2009/exi"
+    elementFormDefault="qualified"&gt;
+
+    &lt;xsd:import namespace="http://www.w3.org/2009/exi"
+        schemaLocation="https://www.w3.org/2009/exi/options.xsd"/&gt;
+
+    &lt;xsd:element name="options"&gt;
+        &lt;xsd:complexType&gt;
+            &lt;xsd:sequence&gt;
+                &lt;xsd:element name="omitOptionsDocument" minOccurs="0"&gt;
+                    &lt;xsd:complexType/&gt;
+                &lt;/xsd:element&gt;
+                &lt;xsd:element name="utcTime" minOccurs="0"&gt;
+                    &lt;xsd:complexType/&gt;
+                &lt;/xsd:element&gt;
+                &lt;xsd:element ref="exi:header" minOccurs="0"/&gt;
+            &lt;/xsd:sequence&gt;
+        &lt;/xsd:complexType&gt;
+    &lt;/xsd:element&gt;
+
+&lt;/xsd:schema&gt;
+
+</pre>
+</div>
+</div>
+<div class="div1">
+
+<h2>
+<a id="designDecisions"></a>C Design Decisions (Non-Normative)</h2>
+<p>This section discusses a number of key decision points in the design of Canonical
+                EXI. A rationale for each decision is given and background information is
+                provided.</p>
+<div class="div2">
+
+<h3>
+<a id="decisionXml"></a>C.1 Relationship to XML Security</h3>
+<p>
+<a href="https://www.w3.org/TR/xml-c14n">Canonical XML</a> was designed to be
+                    useful to applications that test whether an XML document has been changed (e.g.,
+                    XML signature). EXI can be used in such use cases and offers benefits with
+                    respect to compact data exchange and fast processing. To ensure that relevant
+                    Infoset items are available the following <a href="https://www.w3.org/TR/exi/#fidelityOptions">EXI Fidelity Options</a>
+                    must be always enabled: <em>Preserve.pis</em>,
+                        <em>Preserve.prefixes</em>, and <em>Preserve.lexicalValues</em>.
+                    When the XML Canonicalization algorithm preserves comments in a document, the
+                    EXI fidelity option <em>Preserve.comments</em> must be also enabled (see
+                        <a href="https://www.w3.org/TR/exi-best-practices/#signature">here</a>
+                    for more details). </p>
+<p>Canonical EXI, in contrast to Canonical XML, deals with EXI documents and does
+                    not require the overhead of plain-text XML data and its associated overhead. </p>
+<p>Both normal forms, Canonical XML and Canonical EXI, can be used for building the
+                    normal form of XML Infoset and are applicable in the XML security context.
+                    Depending on the application and the associated requirements one or the other
+                    may be better suited. For example, XML Signature applications ideally can chose
+                    which one fits better.</p>
+<div class="note">
+<p class="prefix">
+<b>Note:</b>
+</p>
+<p>In environments that use Canonical EXI for signing and have intermediate
+                        nodes that represent the associated Infoset using text XML, it is important
+                        to ensure the Canonical EXI signer and validator use the same set of options
+                        (see section <a href="#exchangeCanonicalEXIOptions"><b>E.2 Exchange Canonical EXI Options (Best Practices)</b></a>).</p>
+</div>
+</div>
+<div class="div2">
+
+<h3>
+<a id="decisionUnicode"></a>C.2 No Unicode Normalization</h3>
+<p>The Unicode standard allows multiple different representations of certain
+                    "precomposed characters" (a simple example is "&ccedil;"). Thus two character
+                    sequences that have the same appearance and meaning when printed or displayed
+                    may differ in sequences of code points. The W3C provides a reference for
+                    interoperable text <a href="#charModelFundamentals">[Character Model Fundamentals]</a> and also a normalized
+                    representation <a href="#charModelIdentity">[Character Model Identity]</a> but many XML processors do not
+                    perform this normalization. Furthermore, applications that must solve this
+                    problem can typically enforce character model normalization at all times
+                    starting when character content is created in order to avoid processing failures
+                    (see <a href="https://www.w3.org/TR/xml-c14n#NoCharModelNorm"><cite>No Character
+                        Model Normalization in Canonical XML</cite></a>).
+                    </p>
+<p>Therefore, character model normalization is out of scope for EXI canonicalization
+                    and a canonical EXI processor must not change the code
+                    points.
+                </p>
+</div>
+<div class="div2">
+
+<h3>
+<a id="decisionDateTime"></a>C.3 Date-Time Canonicalization Option</h3>
+<p>XML schema provides a <a href="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dateTime-canonical-representation">canonical dateTime representation</a>. That said, the EXI working
+                    group (also based on external feedback) has been found that the canonical form
+                    for XML Schema dateTime values is defined to make it easy to determine whether
+                    two Date-Time values refer to the same instant, regardless of the timezone used. </p>
+<p> On the one hand, for many applications the Date-Time timezone is an important
+                    piece of information that should be preserved. As such, it will be surprising if
+                    the digital signature is not able to detect changes to this information. In
+                    addition, some use cases might be surprised if the canonical EXI format loses
+                    all their timezone information and changes all Date-Time values. </p>
+<p>On the other hand, other applications may require the above mentioned canonical
+                    form.</p>
+<p>Therefore, dateTime values, by default, are not canonicalized but one may specify
+                        <a title="utcTime" href="#utcTime">UTC time normalization</a>.</p>
+</div>
+</div>
+<div class="div1">
+
+<h2>
+<a id="examples"></a>D Canonical EXI Examples (Non-Normative)</h2>
+<div class="div2">
+
+<h3>
+<a id="exampleEventSelection"></a>D.1 EXI Event Selection</h3>
+<p>The subsequently following example depicts the available productions for an
+                    example DocContent grammar. From the perspective of the <a href="#exiSpec">[EXI Format 1.0]</a>
+                    specification it is perfectly fine to match a start element "A" with event code
+                    0 (zero) or 4 (four). A canonical EXI form prescribes event code 0 (zero). </p>
+<div class="exampleOuter">
+
+<div class="exampleHeader">
+<a id="N67414"></a><i><span>Example D-1. </span>Example productions with event codes</i>
+</div>
+<table style="width: 95%;">
+<thead>
+<tr>
+<th colspan="4"></th>
+</tr>
+<tr>
+<th style="text-align: left;" colspan="3">Syntax</th><th style="text-align: left;">Event Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td><td colspan="3"><em>DocContent</em></td>
+</tr>
+<tr>
+<td></td><td></td><td>SE ("A") <em>DocEnd</em></td><td>0</td>
+</tr>
+<tr>
+<td></td><td></td><td>SE ("B") <em>DocEnd</em></td><td>1</td>
+</tr>
+<tr>
+<td></td><td></td><td>SE ("C") <em>DocEnd</em></td><td>2</td>
+</tr>
+<tr>
+<td></td><td></td><td>SE ("D") <em>DocEnd</em></td><td>3</td>
+</tr>
+<tr>
+<td></td><td></td><td>SE(*) <em>DocEnd</em></td><td>4</td>
+</tr>
+<tr>
+<td></td><td></td><td>DT <em>DocContent</em></td><td>5.0</td>
+</tr>
+<tr>
+<td></td><td></td><td>CM <em>DocContent</em></td><td>5.1.0</td>
+</tr>
+<tr>
+<td></td><td></td><td>PI <em>DocContent</em></td><td>5.1.1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="div2">
+
+<h3>
+<a id="exampleStreamOrder"></a>D.2 Stream Order</h3>
+<div class="exampleOuter">
+
+<div class="exampleHeader">
+<a id="N67587"></a><i><span>Example D-2. </span>Attribute and Namespace Declaration Sorting</i>
+</div>
+<table class="tableBorders" style="padding: 10px;">
+<tbody>
+<tr>
+<th colspan="9" style="text-align: left;">Stream (Event Input
+                                    Sequence)</th>
+</tr>
+<tr>
+<td>SD</td><td>SE(root)</td><td>NS(www.foo.com, foo)</td><td>NS(www.bla.com, bla)</td><td>AT(c)</td><td>AT(b)</td><td>AT(a)</td><td>EE</td><td>ED</td>
+</tr>
+<tr>
+<th colspan="9" style="text-align: left;">Canonical EXI Stream</th>
+</tr>
+<tr>
+<td>SD</td><td>SE(root)</td><td>NS(www.bla.com, bla)</td><td>NS(www.foo.com, foo)</td><td>AT(a)</td><td>AT(b)</td><td>AT(c)</td><td>EE</td><td>ED</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="div2">
+
+<h3>
+<a id="exampleFloat"></a>D.3 EXI Floats</h3>
+<p>The Float datatype representation can be converted to the canonical form going
+                    through the following steps. Note, implementations are free to choose any
+                    strategy as long as the constraints in <a href="#dt-float"><b>4.5.4 Float</b></a> are met.</p>
+<div class="exampleOuter">
+
+<div class="exampleHeader">
+<a id="N67693"></a><i><span>Example D-3. </span>An algorithm for converting float values to the canonical form</i>
+</div>
+<p>Let the float value have a decimal notation of the form
+                            <code>&lt;before&gt;.&lt;after&gt;</code> where <code>before</code>
+                        represents the value before the decimal point and <code>after</code>
+                        represents the value after the decimal point. The canonical representation
+                        of the mantissa and exponent shall be determined as follows:</p>
+<ol class="enumar">
+<li>
+<p>Initialize the exponent with the value 0 (zero).
+                                </p>
+</li>
+<li>
+<p>Examine the float value and extract the two portions before and after
+                                the decimal point. If the value after the decimal point can be
+                                represented as 0 (zero) without losing precision, then jump to step
+                                4, otherwise jump to step 3. </p>
+</li>
+<li>
+<p>Decrement the exponent by 1 (one) and shift the decimal point of the
+                                float value by one digit to the right. Jump back to step 2.</p>
+</li>
+<li>
+<p>The portion before the decimal point can be safely converted to the
+                                signed mantissa value. </p>
+</li>
+<li>
+<p>If the signed mantissa is unequal 0 (zero), unequal -0 (negative
+                                zero), and contains a trailing zero, then jump to 6, otherwise jump
+                                to step 7.</p>
+</li>
+<li>
+<p>Increment the exponent by 1 (one) and shift the mantissa by one digit
+                                to the right. Jump back to 5.</p>
+</li>
+<li>
+<p>If the mantissa is equal -0 set the mantissa value to 0 (zero).
+                                Finished.</p>
+</li>
+</ol>
+</div>
+<p>The subsequently following examples depict possible float values opposed to their
+                    canonical form.</p>
+<div class="exampleOuter">
+
+<div class="exampleHeader">
+<a id="N67740"></a><i><span>Example D-4. </span>Canonicalized EXI Float values</i>
+</div>
+<table style="width: 75%;">
+<thead>
+<tr>
+<th style="text-align: left;">Float Value</th><th></th><th colspan="2" style="text-align: left;">Canonical EXI Float Value
+                                </th>
+</tr>
+<tr>
+<th colspan="2"></th><th style="text-align: left;">Mantissa</th><th style="text-align: left;">Exponent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>123.012300</td><th rowspan="10"> &rArr; </th><td>1230123</td><td>-4</td>
+</tr>
+<tr>
+<td>0.0</td><td>0</td><td>0</td>
+</tr>
+<tr>
+<td>-0.0</td><td>0</td><td>0</td>
+</tr>
+<tr>
+<td>1.0</td><td>1</td><td>0</td>
+</tr>
+<tr>
+<td>-1230.01</td><td>-123001</td><td>-2</td>
+</tr>
+<tr>
+<td>0.1230</td><td>123</td><td>-3</td>
+</tr>
+<tr>
+<td>12300</td><td>123</td><td>2</td>
+</tr>
+<tr>
+<td>12.0</td><td>12</td><td>0</td>
+</tr>
+<tr>
+<td>120E-1</td><td>12</td><td>0</td>
+</tr>
+<tr>
+<td>1.2E1</td><td>12</td><td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="div2">
+
+<h3>
+<a id="exampleDateTime"></a>D.4 EXI Date-Times</h3>
+<p>The subsequently following examples depict possible date-Time values opposed to their
+                    canonical form. The canonical EXI form always retains the original seconds part.</p>
+<div class="exampleOuter">
+
+<div class="exampleHeader">
+<a id="N67921"></a><i><span>Example D-5. </span>Canonicalized EXI Date-Time values</i>
+</div>
+<table style="width: 75%;">
+<thead>
+<tr>
+<th style="text-align: left;">Date-Time Value</th><th></th><th colspan="3" style="text-align: left;">Canonical EXI Date-Time Value 
+                            </th>
+</tr>
+<tr>
+<th colspan="2"></th><th style="text-align: left;">(utcTime==false)</th><th></th><th>(utcTime==true)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2015-08-11T24:00:00-07:30</td><th rowspan="2"> &rArr; </th><td>2015-08-12T00:00:00-07:30</td><th rowspan="2"> &rArr; </th><td>2015-08-12T07:30:00Z</td>
+</tr>
+<tr>
+<td>2012-06-30T23:59:60-06:00</td><td>2012-06-30T23:59:60-06:00</td><td>2012-07-01T05:59:60Z</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="div1">
+
+<h2>
+<a id="exiApplications"></a>E Canonical EXI Applications (Non-Normative)</h2>
+<div class="div2">
+
+<h3>
+<a id="signatureProcessingSteps"></a>E.1 Signature Processing Steps</h3>
+<p>The figure below describes the involved processing steps when Canonical EXI is
+                    used for signing an EXI document or a fragment and the signature value is
+                    embedded within the document: First, the EXI stream or fragment of the EXI
+                    stream to be signed has to be transformed in a canonical form according to the
+                    requirements given in this document (see <a href="#canonicalEXI"><b>2. Canonical EXI Stream</b></a>). Then,
+                    the canonical representation is used to determine the signature value based on
+                    the intended signature algorithm. At this point the signature value can be set
+                    within the EXI document and can be transmitted to the recipient. </p>
+<p> To validate the signature value for compliance, the receiver has to build the
+                    canonical EXI stream for the signed portion. Note, this step can be skipped if
+                    there is pre-knowledge on the receiver side that the EXI stream already fulfills
+                    the requirements of Canonical EXI. Finally, to determine the correctness of the
+                    signature value (based on the signature algorithm) it can be compared with the
+                    embedded signature value provided by the sender.</p>
+<div class="figure" style="text-align: center">
+<a id="figSignatureSteps"></a>
+<br>
+<img src="CanonicalEXI.png" alt="Canonical EXI used in Signature"><p style="text-align:left">
+<i><span>Figure E-1. </span>Canonical EXI used in Signature</i>
+</p>
+<br>
+</div>
+<p>In the case of XML Signature processing, a detached signature can be used or an
+                    enveloped signature, in which case the signature element is not included in the
+                    hash calculation.</p>
+<p>During signature generation, the digest is computed over the canonical EXI
+                    stream. There are two independent aspects that are to be solved. </p>
+<ol class="enumar">
+<li>
+<p>
+<em>What gets hashed</em>, and 
+                            
+                        </p>
+</li>
+<li>
+<p>
+<em>How to exchange and share Canonical EXI options (other than
+                                out-of-band) </em> (see <a href="#exchangeCanonicalEXIOptions"><b>E.2 Exchange Canonical EXI Options (Best Practices)</b></a>)</p>
+</li>
+</ol>
+</div>
+<div class="div2">
+
+<h3>
+<a id="exchangeCanonicalEXIOptions"></a>E.2 Exchange Canonical EXI Options (Best Practices)</h3>
+<p> The canonicalization process of EXI is based on the knowledge of the used
+                        <a href="#canonicalOptions"><b>2.1 Canonical EXI Options</b></a> which imply the <a href="https://www.w3.org/TR/exi/#options                         ">EXI
+                        options</a>. The Canonical EXI options specify whether the EXI Options
+                    document is omitted and whether a Date-Time values must be represented using
+                    Coordinated Universal Time (UTC). Also, the EXI options part (which in its
+                    entirety might be optional in the EXI header) communicate the various options
+                    that have been used to encode the actual XML information with EXI and are
+                    essential for any EXI processor. 
+                    
+                    </p>
+<p>Appendix <a href="#canonicalOptionsSchema"><b>B XML Schema for Canonical EXI Options Document</b></a> provides an XML Schema
+                    describing the Canonical EXI Options document. Specifically, it allows users to
+                    communicate EXI-C14N (and EXI) options as part of the digital signature
+                    framework, via an out-of-band protocol, an overarching specification, or in
+                    other use-cases.</p>
+<div class="div3">
+
+<h4>
+<a id="N68072"></a>E.2.1 Example - XML Signature</h4>
+<p> According to section 6.1 of <a href="https://www.w3.org/TR/xmldsig-core1/#sec-AlgID">XML Signature
+                            Syntax and Processing Version</a> explicit additional parameters to an
+                        algorithm appear as content elements within the algorithm role element. The
+                        role element in this case is "CanonicalizationMethod". Hence, Canonical EXI
+                        use cases can leverage the sub-elements in CanonicalizationMethod. </p>
+<p>CanonicalizationMethod element is given a schema type as: </p>
+<div class="exampleInner">
+<pre>
+    &lt;element name="CanonicalizationMethod" type="ds:CanonicalizationMethodType"/&gt; 
+    
+    &lt;complexType name="CanonicalizationMethodType" mixed="true"&gt;
+        &lt;sequence&gt;
+            &lt;any namespace="##any" minOccurs="0" maxOccurs="unbounded"/&gt;
+            &lt;!-- (0,unbounded) elements from (1,1) namespace --&gt;
+        &lt;/sequence&gt;
+        &lt;attribute name="Algorithm" type="anyURI" use="required"/&gt; 
+    &lt;/complexType&gt;
+                    </pre>
+</div>
+<p>A possible Canonical EXI options document (as part of XML Signature) may look
+                        as follows</p>
+<div class="exampleInner">
+<pre>
+...
+&lt;CanonicalizationMethod xmlns="http://www.w3.org/2000/09/xmldsig#" 
+    Algorithm="http://www.w3.org/TR/exi-c14n"&gt;
+    &lt;exi-c14n:options xmlns:exi="http://www.w3.org/2009/exi"
+        xmlns:exi-c14n="http://www.w3.org/2016/exi-c14n"&gt;
+        &lt;exi-c14n:omitOptionsDocument/&gt;
+        &lt;exi-c14n:utcTime/&gt;
+        &lt;exi:header&gt;
+            &lt;exi:common&gt;
+                &lt;exi:compression/&gt;
+                &lt;exi:fragment/&gt;
+            &lt;/exi:common&gt;
+        &lt;/exi:header&gt;
+    &lt;/exi-c14n:options&gt;
+&lt;/CanonicalizationMethod&gt; 
+...
+                    </pre>
+</div>
+<div class="note">
+<p class="prefix">
+<b>Note:</b>
+</p>
+<p>Another proposal is to use the <a href="https://www.w3.org/TR/xmldsig-core1/#sec-SignatureProperties">SignatureProperties</a> element.</p>
+</div>
+</div>
+<div class="div3">
+
+<h4>
+<a id="N68109"></a>E.2.2 Decision Criteria</h4>
+<p>This section provided best practices how to exchange Canonical EXI options
+                        but use-cases are not limited to the afore mentioned proposals. There might
+                        be other methods for communicating Canonical EXI options:</p>
+<ul>
+<li>
+<p>A community of interest might decide on a set of Canonical EXI
+                                options that are appropriate for their use case and codify them in
+                                their specifications / standards. Implementations that comply with
+                                these specifications / standards will all use the same options,
+                                without the need for communicating them dynamically at runtime.</p>
+</li>
+<li>
+<p>A community of interest may devise a protocol for exchanging the
+                                Canonical EXI options dynamically out-of-band as needed.</p>
+</li>
+<li>
+<p>
+<em>and so forth</em>
+</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="div1">
+
+<h2>
+<a id="useful-reference"></a>F Useful References (Non-Normative)</h2>
+<dl>
+<dt class="label">RFC 3986</dt>
+<dd>
+<p>Normalization and comparison of url and uri values, if applied within a
+                            document, is best performed in accordance with <a href="#RFC3986">[IETF RFC 3986]</a>.</p>
+</dd>
+</dl>
+</div>
+<div class="div1">
+
+<h2>
+<a id="changes"></a>G Recent Specification Changes (Non-Normative)</h2>
+<div class="div2">
+
+<h3>
+<a id="N68143"></a>G.1 Changes from Candidate Recommendation</h3>
+<ul>
+<li>
+<p>Clarifications added on how to canonicalize dateTime values,
+							if the Canonical EXI Option <a title="utcTime" href="#utcTime">utcTime</a>
+                            is equal to <code>true</code> (see <a href="#dt-dateTime"><b>4.5.5 Date-Time</b></a>):
+							<ul>
+<li>by applying the algorithm defined in
+									<a href="http://www.w3.org/TR/xmlschema-2/#adding-durations-to-dateTimes"><cite>
+										adding durations to dateTimes</cite></a><a href="#schemaDatatypes2">[XML Schema Datatypes]</a>
+</li>
+<li>by not modifying the value of seconds
+								</li>
+</ul>
+						
+</p>
+</li>
+<li>
+<p>Added note describing in which cases extraneous events are still required (see <a href="#excludeExtraneousEvents"><b>4.3.1 Exclude extraneous events </b></a>)</p>
+</li>
+</ul>
+</div>
+<div class="div2">
+
+<h3>
+<a id="N68181"></a>G.2 Changes from Last Call Working Draft</h3>
+<ul>
+<li>
+<p>Updated the section on motivation to make clear that EXI canonicalization
+                            is useful for traditional XML users also (see <a href="#motivation"><b>1.2 Motivation</b></a>).</p>
+</li>
+<li>
+<p>Introduced the concept of Canonical EXI Options to provide a single,
+                            simple, unambiguous way to express the rules of EXI-C14N options (see
+                                <a href="#canonicalOptions"><b>2.1 Canonical EXI Options</b></a>).</p>
+</li>
+<li>
+<p>The Canonical EXI Option <a title="omitOptionsDocument" href="#omitOptionsDocument">omitOptionsDocument</a> specifies whether the fifth part of
+                            the EXI Header, the EXI Options, is present (see <a href="#canonicalHeader"><b>3. Canonical EXI Header</b></a>).</p>
+</li>
+<li>
+<p>Changed the presence of the element schemaId in the Canonical EXI Header
+                            from "MUST" to "MAY" by describing the consequences in an accompanying
+                            warning (see <a href="#canonicalHeader"><b>3. Canonical EXI Header</b></a>).</p>
+</li>
+<li>
+<p>It was made clear that the element datatypeRepresentationMap must be
+                            omitted when the value of the Preserve.lexicalValues fidelity option is
+                            true (see <a href="#canonicalHeader"><b>3. Canonical EXI Header</b></a>).</p>
+</li>
+<li>
+<p>It is now explicitly stated that each event in an EXI stream participates
+                            in a mapping system that relates events to XML Information Items (see
+                                <a href="#canonicalBody"><b>4. Canonical EXI Body</b></a>).</p>
+</li>
+<li>
+<p>In the process of selecting the EXI event that matches most precisely
+                            Character (CH) events have been added (see <a href="#exiEventMatching"><b>4.2.2 Use the event that matches most precisely</b></a>).</p>
+</li>
+<li>
+<p>A section about EXI content handling specifices how to deal with
+                            extraneous events, empty element content, and whitespaces (see <a href="#exiContentHandling"><b>4.3 EXI Content Handling</b></a>).</p>
+</li>
+<li>
+<p>Added further constraints for Date-Time values. Moreover, the Canonical
+                            EXI Option <a title="utcTime" href="#utcTime">utcTime</a> specifies whether
+                            Date-Time values must be represented using Coordinated Universal Time
+                            (see <a href="#dt-dateTime"><b>4.5.5 Date-Time</b></a>).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="div1">
+
+<h2>
+<a id="acknowledgements"></a>H Acknowledgements (Non-Normative)</h2>
+<p>This document is the work of the <a href="https://www.w3.org/XML/EXI/">Efficient XML
+                    Interchange (EXI) WG</a>.</p>
+<p>Members of the Working Group are (at the time of writing, sorted alphabetically by
+                last name): </p>
+<ul>
+<li>
+<p>Carine Bournez, W3C/ERCIM (<em>staff contact</em>)</p>
+</li>
+<li>
+<p>Don Brutzman, Web3D Consortium</p>
+</li>
+<li>
+<p>Michael Cokus, MITRE Corporation</p>
+</li>
+<li>
+<p>Fern&aacute;ndez, Javier D., Vienna University of Economics and Business</p>
+</li>
+<li>
+<p>Joerg Heuer, Siemens AG</p>
+</li>
+<li>
+<p>Schloss Nathan, Facebook</p>
+</li>
+<li>
+<p>Sebastian K&auml;bisch, Siemens AG</p>
+</li>
+<li>
+<p>Takuki Kamiya, Fujitsu Laboratories of America (<em>chair</em>)</p>
+</li>
+<li>
+<p>Richard Kuntschke, Siemens AG</p>
+</li>
+<li>
+<p>Don McGregor, Web3D Consortium</p>
+</li>
+<li>
+<p>Daniel Peintner, Siemens AG</p>
+</li>
+<li>
+<p>Matsukura Ryuichi, Fujitsu Laboratories</p>
+</li>
+<li>
+<p>Liam Quin, W3C/MIT (<em>staff contact</em>)</p>
+</li>
+<li>
+<p>Mohamed Zergaoui, INNOVIMAX</p>
+</li>
+</ul>
+<p>The EXI Working Group would like to acknowledge the following former members or
+                external experts for their leadership, guidance and expertise they provided
+                throughout the process of creating this document (sorted alphabetically by last
+                name): </p>
+<ul>
+<li>
+<p>John Cowan</p>
+</li>
+<li>
+<p>Yusuke Doi</p>
+</li>
+<li>
+<p>Youenn Fablet</p>
+</li>
+<li>
+<p>Bruce Hill </p>
+</li>
+<li>
+<p>Frederick Hirsch</p>
+</li>
+<li>
+<p>Rumen Kyusakov</p>
+</li>
+<li>
+<p>David Lee</p>
+</li>
+<li>
+<p>Rich Rollman</p>
+</li>
+<li>
+<p>John Schneider</p>
+</li>
+<li>
+<p>Josh Soref</p>
+</li>
+<li>
+<p>Alessandro Triglia</p>
+</li>
+</ul>
+</div>
+</div>
+<script src="//www.w3.org/scripts/TR/2016/fixup.js"></script>
+</body>
+</html>

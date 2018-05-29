@@ -1,0 +1,13 @@
+<!DOCTYPE project [
+]>
+
+<project name="Canonical EXI" default="genHtml" basedir=".">
+
+<property name="canonicalexi" value="canonical-exi.xml"/>
+<property name="stylesheet" value="canonical-exi.xsl"/>
+
+<target name="genHtml">
+  <xslt style="${stylesheet}" in="${canonicalexi}" out="canonical-exi.html" force="true"/>
+</target>
+
+</project>

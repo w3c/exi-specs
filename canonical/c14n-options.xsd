@@ -1,0 +1,22 @@
+<xsd:schema targetNamespace="http://www.w3.org/2016/exi-c14n"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:exi="http://www.w3.org/2009/exi"
+    elementFormDefault="qualified">
+
+    <xsd:import namespace="http://www.w3.org/2009/exi"
+        schemaLocation="https://www.w3.org/2009/exi/options.xsd"/>
+
+    <xsd:element name="options">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="omitOptionsDocument" minOccurs="0">
+                    <xsd:complexType/>
+                </xsd:element>
+                <xsd:element name="utcTime" minOccurs="0">
+                    <xsd:complexType/>
+                </xsd:element>
+                <xsd:element ref="exi:header" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exi-c14n:options xmlns:exi="http://www.w3.org/2009/exi"
+    xmlns:exi-c14n="http://www.w3.org/2016/exi-c14n"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.w3.org/2016/exi-c14n ./c14n-options.xsd">
+    <exi-c14n:omitOptionsDocument/>
+    <exi-c14n:utcTime/>
+    <exi:header>
+        <exi:common>
+            <exi:compression/>
+            <exi:fragment/>
+            <exi:schemaId>bla007</exi:schemaId>
+        </exi:common>
+    </exi:header>
+</exi-c14n:options>
