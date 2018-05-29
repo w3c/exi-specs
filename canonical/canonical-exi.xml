@@ -3,26 +3,34 @@
        "http://www.w3.org/2002/xmlspec/dtd/2.2/xmlspec.dtd" [
        ]>
 <?xml-stylesheet type="text/xsl" href="canonical-exi.xsl"?>
-<spec w3c-doctype="pr">
+<spec w3c-doctype="rec">
     <header>
         <title>Canonical EXI</title>
-        <w3c-designation>PR-exi-c14n-20180220</w3c-designation>
+        <w3c-designation>REC-exi-c14n-20180531</w3c-designation>
         <w3c-canonical>exi-c14n</w3c-canonical>
-        <w3c-doctype>W3C Proposed Recommendation</w3c-doctype>
+        <w3c-doctype>W3C Recommendation</w3c-doctype>
         <pubdate>
-            <day>17</day>
-            <month>April</month>
+            <day>31</day>
+            <month>May</month>
             <year>2018</year>
         </pubdate>
         <publoc>
-            <loc href="https://www.w3.org/TR/2018/PR-exi-c14n-20180220/">
-            https://www.w3.org/TR/2018/PR-exi-c14n-20180220/</loc>
+            <loc href="https://www.w3.org/TR/2018/REC-exi-c14n-20180531/">
+            https://www.w3.org/TR/2018/REC-exi-c14n-20180531/</loc>
         </publoc>
         <prevlocs>
+<sitem>
+            <loc href="https://www.w3.org/TR/2018/PR-exi-c14n-20180426/"
+                >https://www.w3.org/TR/2018/PR-exi-c14n-20180426/</loc>
+</sitem>
+<sitem>
             <loc href="https://www.w3.org/TR/2016/CR-exi-c14n-20161103/"
                 >https://www.w3.org/TR/2016/CR-exi-c14n-20161103/</loc>
+</sitem>
+<sitem>
             <loc href="https://www.w3.org/TR/2015/WD-exi-c14n-20150521/"
                 >https://www.w3.org/TR/2015/WD-exi-c14n-20150521/</loc>
+</sitem>
         </prevlocs>
         <latestloc>
             <loc href="https://www.w3.org/TR/exi-c14n/">https://www.w3.org/TR/exi-c14n/</loc>
@@ -60,18 +68,16 @@
                         >https://www.w3.org/TR/</loc>.</emph>
             </p>
 
-            <p>This is the Proposed Recommendation of the Canonical EXI specification and it has
+            <p>This is the W3C Recommendation of the Canonical EXI specification and it has
                 been produced by the <loc href="https://www.w3.org/XML/EXI/">EXI Working
-                Group</loc>. This document is intended to become a W3C Recommendation.</p>
+                Group</loc>. </p>
 
 
-            <p>A <loc href="https://services.w3.org/htmldiff?doc1=https://www.w3.org/TR/2016/CR-exi-c14n-20161103/&amp;doc2=https://www.w3.org/TR/2018/PR-exi-c14n-20180220/">diff-marked </loc>version against the previous version of this document is available.  </p>
+            <p>A <loc href="https://services.w3.org/htmldiff?doc1=https://www.w3.org/TR/2018/PR-exi-c14n-20180426/&amp;doc2=https://www.w3.org/TR/2018/REC-exi-c14n-20180531/">diff-marked </loc>version against the previous version of this document is available.  </p>
 
-            <p>Comments about this document are welcome. Please send them to the <loc href="mailto:public-exi-comments@w3.org">public-exi-comments@w3.org</loc> mailing list (<loc href="https://lists.w3.org/Archives/Public/public-exi-comments/">Archives</loc>). Advisory Committee Representatives should consult their <loc href="https://www.w3.org/2002/09/wbs/myQuestionnaires">WBS questionnaires</loc>.</p>
+<p>Please send comments about this document as <loc href="https://github.com/w3c/exi-specs/issues">GitHub issues</loc> with label "Canonical EXI".</p>
 
            <p>The interoperability testing has been performed using test cases developed in the EXI <loc href="https://github.com/w3c/exi-testsuite">testsuite</loc>. An <loc href="https://www.w3.org/XML/EXI/implementation-report-c14n/">implementation report</loc> has been produced.</p>
-
-            <p>Publication as a Proposed Recommendation does not imply endorsement by the W3C Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.</p>
 
             <p>This document was produced by a group operating under the <loc href="https://www.w3.org/Consortium/Patent-Policy/">W3C Patent Policy</loc>. W3C maintains a <loc rel="disclosure" href="https://www.w3.org/2004/01/pp-impl/38502/status">public list of any patent disclosures</loc> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <loc href="https://www.w3.org/Consortium/Patent-Policy/#def-essential">Essential Claim(s)</loc> must disclose the information in accordance with <loc href="https://www.w3.org/Consortium/Patent-Policy/#sec-Disclosure">section 6 of the W3C Patent Policy</loc>.</p> 
 
