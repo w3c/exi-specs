@@ -45,6 +45,8 @@
                 <affiliation>Siemens AG</affiliation>
             </author>
         </authlist>
+<errataloc href="http://www.w3.org/XML/EXI/exi-c14n-errata"/>
+<translationloc href="http://www.w3.org/TR/&pubDateYear;/REC-exi-c14n-&pubDateYear;&pubDateMonth;&pubDateDay;/,translations"/>
         <abstract>
             <p>Any EXI document is part of a set of EXI documents that are logically equivalent
                 within an application context, but which vary in physical representation based on
@@ -78,6 +80,8 @@
 <p>Please send comments about this document as <loc href="https://github.com/w3c/exi-specs/issues">GitHub issues</loc> with label "Canonical EXI".</p>
 
            <p>The interoperability testing has been performed using test cases developed in the EXI <loc href="https://github.com/w3c/exi-testsuite">testsuite</loc>. An <loc href="https://www.w3.org/XML/EXI/implementation-report-c14n/">implementation report</loc> has been produced.</p>
+<p>
+This document has been reviewed by W3C Members, by software developers, and by other W3C groups and interested parties, and is endorsed by the Director as a W3C Recommendation. It is a stable document and may be used as reference material or cited from another document. W3C's role in making the Recommendation is to draw attention to the specification and to promote its widespread deployment. This enhances the functionality and interoperability of the Web.</p>
 
             <p>This document was produced by a group operating under the <loc href="https://www.w3.org/Consortium/Patent-Policy/">W3C Patent Policy</loc>. W3C maintains a <loc rel="disclosure" href="https://www.w3.org/2004/01/pp-impl/38502/status">public list of any patent disclosures</loc> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <loc href="https://www.w3.org/Consortium/Patent-Policy/#def-essential">Essential Claim(s)</loc> must disclose the information in accordance with <loc href="https://www.w3.org/Consortium/Patent-Policy/#sec-Disclosure">section 6 of the W3C Patent Policy</loc>.</p> 
 
@@ -2265,7 +2269,7 @@
                     <item>
                         <p>Clarifications added on how to canonicalize dateTime values,
 							if the Canonical EXI Option <termref def="utcTime">utcTime</termref>
-                            is equal to <code>true</code> (see <specref ref="dt-dateTime"/>):
+                            is equal to <code>true</code> (see <specref ref="dt-dateTime"/>):</p>
 							<ulist>
 								<item>by applying the algorithm defined in
 									<titleref href="http://www.w3.org/TR/xmlschema-2/#adding-durations-to-dateTimes">
@@ -2274,7 +2278,6 @@
 								<item>by not modifying the value of seconds
 								</item>
 							</ulist>
-						</p>
                     </item>
                     <item>
                         <p>Added note describing in which cases extraneous events are still required (see <specref ref="excludeExtraneousEvents"/>)</p> 

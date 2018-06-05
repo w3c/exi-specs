@@ -116,6 +116,9 @@ div.exampleHeader { font-weight: bold;
 <dd>Sebastian K&auml;bisch, Siemens AG</dd>
 <dd>Daniel Peintner, Siemens AG</dd>
 </dl>
+<p>Please refer to the <a href="http://www.w3.org/XML/EXI/exi-c14n-errata">errata</a> for this document, which may
+      include normative corrections.</p>
+<p>See also <a href="http://www.w3.org/TR//REC-exi-c14n-/,translations"><strong>translations</strong></a>.</p>
 <p class="copyright">
 <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> &copy; 2018 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>&reg;</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply.</p>
 <hr>
@@ -155,6 +158,8 @@ div.exampleHeader { font-weight: bold;
 <p>A <a href="https://services.w3.org/htmldiff?doc1=https://www.w3.org/TR/2018/PR-exi-c14n-20180426/&amp;doc2=https://www.w3.org/TR/2018/REC-exi-c14n-20180607/">diff-marked </a>version against the previous version of this document is available.  </p>
 <p>Please send comments about this document as <a href="https://github.com/w3c/exi-specs/issues">GitHub issues</a> with label "Canonical EXI".</p>
 <p>The interoperability testing has been performed using test cases developed in the EXI <a href="https://github.com/w3c/exi-testsuite">testsuite</a>. An <a href="https://www.w3.org/XML/EXI/implementation-report-c14n/">implementation report</a> has been produced.</p>
+<p>
+This document has been reviewed by W3C Members, by software developers, and by other W3C groups and interested parties, and is endorsed by the Director as a W3C Recommendation. It is a stable document and may be used as reference material or cited from another document. W3C's role in making the Recommendation is to draw attention to the specification and to promote its widespread deployment. This enhances the functionality and interoperability of the Web.</p>
 <p>This document was produced by a group operating under the <a href="https://www.w3.org/Consortium/Patent-Policy/">W3C Patent Policy</a>. W3C maintains a <a rel="disclosure" href="https://www.w3.org/2004/01/pp-impl/38502/status">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/Consortium/Patent-Policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/Consortium/Patent-Policy/#sec-Disclosure">section 6 of the W3C Patent Policy</a>.</p>
 <p>This document is governed by the <a id="w3c_process_revision" href="https://www.w3.org/2018/Process-20180201/">1 February 2018 W3C Process Document</a>. </p>
 </div>
@@ -181,7 +186,7 @@ div.exampleHeader { font-weight: bold;
 </li>
 
 <li>
-<a href="#N65787"><span class="secno">1.3 </span><span class="content">Applications</span></a>
+<a href="#N65793"><span class="secno">1.3 </span><span class="content">Applications</span></a>
 
 <ol class="toc"></ol>
 </li>
@@ -385,12 +390,12 @@ div.exampleHeader { font-weight: bold;
 <ol class="toc">
 
 <li>
-<a href="#N68071"><span class="secno">E.2.1 </span><span class="content">Example - XML Signature</span></a>
+<a href="#N68077"><span class="secno">E.2.1 </span><span class="content">Example - XML Signature</span></a>
 
 </li>
 
 <li>
-<a href="#N68108"><span class="secno">E.2.2 </span><span class="content">Decision Criteria</span></a>
+<a href="#N68114"><span class="secno">E.2.2 </span><span class="content">Decision Criteria</span></a>
 
 </li>
 </ol>
@@ -406,13 +411,13 @@ div.exampleHeader { font-weight: bold;
 <ol class="toc">
 
 <li>
-<a href="#N68142"><span class="secno">G.1 </span><span class="content">Changes from Candidate Recommendation</span></a>
+<a href="#N68148"><span class="secno">G.1 </span><span class="content">Changes from Candidate Recommendation</span></a>
 
 <ol class="toc"></ol>
 </li>
 
 <li>
-<a href="#N68180"><span class="secno">G.2 </span><span class="content">Changes from Last Call Working Draft</span></a>
+<a href="#N68185"><span class="secno">G.2 </span><span class="content">Changes from Last Call Working Draft</span></a>
 
 <ol class="toc"></ol>
 </li>
@@ -479,7 +484,7 @@ div.exampleHeader { font-weight: bold;
 <div class="div2">
 
 <h3>
-<a id="N65787"></a>1.3 Applications</h3>
+<a id="N65793"></a>1.3 Applications</h3>
 <p> One application field for the canonical form of an XML-based document or
                     document subset is digital signature. During signature generation, the digest is
                     computed over the canonical form of the document or the document subset
@@ -667,7 +672,7 @@ div.exampleHeader { font-weight: bold;
 <div class="exampleOuter">
 
 <div class="exampleHeader">
-<a id="N66161"></a><i><span>Example 3-1. </span>EXI Options vs. Canonical EXI Options</i>
+<a id="N66167"></a><i><span>Example 3-1. </span>EXI Options vs. Canonical EXI Options</i>
 </div>
 <table style="border: 0px;">
 <tbody>
@@ -1487,7 +1492,7 @@ div.exampleHeader { font-weight: bold;
 <div class="exampleOuter">
 
 <div class="exampleHeader">
-<a id="N67413"></a><i><span>Example D-1. </span>Example productions with event codes</i>
+<a id="N67419"></a><i><span>Example D-1. </span>Example productions with event codes</i>
 </div>
 <table style="width: 95%;">
 <thead>
@@ -1537,7 +1542,7 @@ div.exampleHeader { font-weight: bold;
 <div class="exampleOuter">
 
 <div class="exampleHeader">
-<a id="N67586"></a><i><span>Example D-2. </span>Attribute and Namespace Declaration Sorting</i>
+<a id="N67592"></a><i><span>Example D-2. </span>Attribute and Namespace Declaration Sorting</i>
 </div>
 <table class="tableBorders" style="padding: 10px;">
 <tbody>
@@ -1568,7 +1573,7 @@ div.exampleHeader { font-weight: bold;
 <div class="exampleOuter">
 
 <div class="exampleHeader">
-<a id="N67692"></a><i><span>Example D-3. </span>An algorithm for converting float values to the canonical form</i>
+<a id="N67698"></a><i><span>Example D-3. </span>An algorithm for converting float values to the canonical form</i>
 </div>
 <p>Let the float value have a decimal notation of the form
                             <code>&lt;before&gt;.&lt;after&gt;</code> where <code>before</code>
@@ -1614,7 +1619,7 @@ div.exampleHeader { font-weight: bold;
 <div class="exampleOuter">
 
 <div class="exampleHeader">
-<a id="N67739"></a><i><span>Example D-4. </span>Canonicalized EXI Float values</i>
+<a id="N67745"></a><i><span>Example D-4. </span>Canonicalized EXI Float values</i>
 </div>
 <table style="width: 75%;">
 <thead>
@@ -1670,7 +1675,7 @@ div.exampleHeader { font-weight: bold;
 <div class="exampleOuter">
 
 <div class="exampleHeader">
-<a id="N67920"></a><i><span>Example D-5. </span>Canonicalized EXI Date-Time values</i>
+<a id="N67926"></a><i><span>Example D-5. </span>Canonicalized EXI Date-Time values</i>
 </div>
 <table style="width: 75%;">
 <thead>
@@ -1765,7 +1770,7 @@ div.exampleHeader { font-weight: bold;
 <div class="div3">
 
 <h4>
-<a id="N68071"></a>E.2.1 Example - XML Signature</h4>
+<a id="N68077"></a>E.2.1 Example - XML Signature</h4>
 <p> According to section 6.1 of <a href="https://www.w3.org/TR/xmldsig-core1/#sec-AlgID">XML Signature
                             Syntax and Processing Version</a> explicit additional parameters to an
                         algorithm appear as content elements within the algorithm role element. The
@@ -1817,7 +1822,7 @@ div.exampleHeader { font-weight: bold;
 <div class="div3">
 
 <h4>
-<a id="N68108"></a>E.2.2 Decision Criteria</h4>
+<a id="N68114"></a>E.2.2 Decision Criteria</h4>
 <p>This section provided best practices how to exchange Canonical EXI options
                         but use-cases are not limited to the afore mentioned proposals. There might
                         be other methods for communicating Canonical EXI options:</p>
@@ -1861,13 +1866,13 @@ div.exampleHeader { font-weight: bold;
 <div class="div2">
 
 <h3>
-<a id="N68142"></a>G.1 Changes from Candidate Recommendation</h3>
+<a id="N68148"></a>G.1 Changes from Candidate Recommendation</h3>
 <ul>
 <li>
 <p>Clarifications added on how to canonicalize dateTime values,
 							if the Canonical EXI Option <a title="utcTime" href="#utcTime">utcTime</a>
-                            is equal to <code>true</code> (see <a href="#dt-dateTime"><b>4.5.5 Date-Time</b></a>):
-							<ul>
+                            is equal to <code>true</code> (see <a href="#dt-dateTime"><b>4.5.5 Date-Time</b></a>):</p>
+<ul>
 <li>by applying the algorithm defined in
 									<a href="http://www.w3.org/TR/xmlschema-2/#adding-durations-to-dateTimes"><cite>
 										adding durations to dateTimes</cite></a><a href="#schemaDatatypes2">[XML Schema Datatypes]</a>
@@ -1875,8 +1880,6 @@ div.exampleHeader { font-weight: bold;
 <li>by not modifying the value of seconds
 								</li>
 </ul>
-						
-</p>
 </li>
 <li>
 <p>Added note describing in which cases extraneous events are still required (see <a href="#excludeExtraneousEvents"><b>4.3.1 Exclude extraneous events </b></a>)</p>
@@ -1886,7 +1889,7 @@ div.exampleHeader { font-weight: bold;
 <div class="div2">
 
 <h3>
-<a id="N68180"></a>G.2 Changes from Last Call Working Draft</h3>
+<a id="N68185"></a>G.2 Changes from Last Call Working Draft</h3>
 <ul>
 <li>
 <p>Updated the section on motivation to make clear that EXI canonicalization
