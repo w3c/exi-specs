@@ -6,17 +6,17 @@
 <spec w3c-doctype="rec">
     <header>
         <title>Canonical EXI</title>
-        <w3c-designation>REC-exi-c14n-20180531</w3c-designation>
+        <w3c-designation>REC-exi-c14n-20180607</w3c-designation>
         <w3c-canonical>exi-c14n</w3c-canonical>
         <w3c-doctype>W3C Recommendation</w3c-doctype>
         <pubdate>
-            <day>31</day>
-            <month>May</month>
+            <day>07</day>
+            <month>June</month>
             <year>2018</year>
         </pubdate>
         <publoc>
-            <loc href="https://www.w3.org/TR/2018/REC-exi-c14n-20180531/">
-            https://www.w3.org/TR/2018/REC-exi-c14n-20180531/</loc>
+            <loc href="https://www.w3.org/TR/2018/REC-exi-c14n-20180607/">
+            https://www.w3.org/TR/2018/REC-exi-c14n-20180607/</loc>
         </publoc>
         <prevlocs>
 <sitem>
@@ -73,7 +73,7 @@
                 Group</loc>. </p>
 
 
-            <p>A <loc href="https://services.w3.org/htmldiff?doc1=https://www.w3.org/TR/2018/PR-exi-c14n-20180426/&amp;doc2=https://www.w3.org/TR/2018/REC-exi-c14n-20180531/">diff-marked </loc>version against the previous version of this document is available.  </p>
+            <p>A <loc href="https://services.w3.org/htmldiff?doc1=https://www.w3.org/TR/2018/PR-exi-c14n-20180426/&amp;doc2=https://www.w3.org/TR/2018/REC-exi-c14n-20180607/">diff-marked </loc>version against the previous version of this document is available.  </p>
 
 <p>Please send comments about this document as <loc href="https://github.com/w3c/exi-specs/issues">GitHub issues</loc> with label "Canonical EXI".</p>
 
